@@ -1,0 +1,7 @@
+{
+  "name": "StudentPortalMobileApplication",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
