@@ -1,0 +1,86 @@
+ion-header {
+    ion-toolbar {
+        ion-icon {
+            font-size    : 25px;
+            padding-right: 16px
+        }
+    }
+}
+
+ion-content {
+    --background: #E3E3E3;
+
+    .container {
+        padding: 0 5px;
+
+        h1 {
+            font-size  : 25px;
+            margin-left: 10px;
+        }
+
+        .appliedCourse {
+            background-color: #fff;
+            padding         : 16px 10px;
+            height          : 132px;
+            position        : relative;
+            margin-bottom      : 10px;
+
+            img {
+                width       : 150px;
+                height      : 100px;
+                float       : left;
+                margin-right: 10px;
+            }
+
+            .img {
+                width       : 150px;
+                height      : 100px;
+                float       : left;
+                margin-right: 10px;
+            }
+
+            ion-text {
+                ion-icon {
+                    font-size   : 20px;
+                    margin: 2px 8px 0 0;
+                }
+
+                p {
+                    font-size         : 12px;
+                    margin            : 0;
+                    margin-top        : 5px;
+                    overflow          : hidden;
+                    text-overflow     : ellipsis;
+                    display           : -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+
+                    .checked {
+                        color: orange;
+                    }
+                }
+
+                h1 {
+                    font-size         : 18px;
+                    margin            : 0;
+                    overflow          : hidden;
+                    text-overflow     : ellipsis;
+                    display           : -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                }
+            }
+
+            ion-button {
+                position: absolute;
+                bottom  : 16px;
+            }
+
+            .button {
+                position: absolute;
+                bottom  : 10px;
+            }
+        }
+
+    }
+}

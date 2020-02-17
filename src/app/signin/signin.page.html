@@ -1,0 +1,37 @@
+<ion-content>
+  <div class="container">
+    <form [formGroup]="user" (submit)="signin()">
+      <div class="img ion-margin">
+        <img src=".\assets\images\cropped-Deepeg-95x95.png">
+      </div>
+      <div class="errors">
+        {{error}}
+      </div>
+      <ion-list>
+        <ion-item>
+          <ion-label>Email:</ion-label>
+          <ion-input type="email" formControlName="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Password:</ion-label>
+          <ion-input type="password" formControlName="password" required></ion-input>
+        </ion-item>
+        <a routerLink="/reset-password" class="ion-float-right">
+          Forgot Password?
+        </a>
+      </ion-list>
+      <div class="ion-text-center ion-margin" style="height: 35px;">
+        <ion-spinner *ngIf="spinner"></ion-spinner>
+        <button *ngIf="!spinner" type="submit">
+          <ion-text>Sign in</ion-text>
+        </button>
+      </div>
+    </form>
+    <div class="ion-text-center">
+      <ion-text style="font-size: 13px;">
+        If you don't have an account <span style="text-decoration: underline; color: #800030"
+          routerLink="/register">Sign up</span>!
+      </ion-text>
+    </div>
+  </div>
+</ion-content>

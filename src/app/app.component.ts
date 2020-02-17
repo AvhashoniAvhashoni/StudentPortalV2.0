@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { User } from './class/user';
+import { AppService } from './app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,37 +13,46 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public selectedIndex = 0;
+  public profilePic: string = "https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
+  public name: string = "";
+  public email: string = "";
+  public user: User;
+
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
+      title: 'Home',
+      url: '/landing',
+      icon: 'home'
     },
     {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
+      title: 'Profile',
+      url: '/profile',
+      icon: 'person'
     },
     {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
+      title: 'Registration',
+      url: '/registration',
+      icon: 'newspaper'
     },
     {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
+      title: 'Registered Courses',
+      url: 'enrolledcourses',
+      icon: 'clipboard'
     },
     {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
+      title: 'Course Content',
+      url: '/news',
+      icon: 'easel'
     },
     {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
+      title: 'Financial Statement',
+      url: '/finance',
+      icon: 'wallet'
+    },
+    {
+      title: 'Log Out',
+      url: '/logout',
+      icon: 'log-out'
     }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
@@ -48,7 +60,10 @@ export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private _menuCtr: MenuController,
+    private _service: AppService,
+    private _router: Router
   ) {
     this.initializeApp();
   }
@@ -61,9 +76,18 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+    this.user = this._service.getLocal("user");
+    if (this.user.profilePicUrl) {
+      this.profilePic = this.user.profilePicUrl;
+    }
+    this.name = this.user.firstName;
+    this.email = this.user.email;
+
+    if (this.user) {
+      this._menuCtr.enable(true);
+      // this._router.navigateByUrl("landing");
+    } else {
+      this._menuCtr.enable(false);
     }
   }
 }

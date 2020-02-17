@@ -1,0 +1,95 @@
+ion-content {
+    .intro {
+        height           : 50vh;
+        width            : 100%;
+        background-repeat: no-repeat;
+        background-size  : 100% 50vh;
+        box-shadow       : 0 0 0 1000px rgba(0, 0, 0, 0.5) inset;
+
+        button {
+            border-radius   : 50%;
+            padding         : 10px;
+            background-color: #800020;
+            color           : #fff;
+            text-align      : center;
+            margin-bottom   : 0;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        h1 {
+            margin-top: 10px;
+            font-size : 25px;
+        }
+
+        p {
+            font-size         : 13px;
+            overflow          : hidden;
+            text-overflow     : ellipsis;
+            display           : -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+
+        .badges {
+            .bedge {
+                border-radius   : 20px;
+                padding         : 0 10px;
+                margin          : 0 8px 5px 0;
+                background-color: transparent;
+                border          : 1px solid #fff;
+                color           : #fff;
+                font-size       : 13px;
+            }
+        }
+    }
+
+    .video {
+        margin-top: -150px;
+        text-align: center;
+
+        video {
+            background-color: #000;
+        }
+    }
+
+    .container {
+        ion-grid {
+            ion-row {
+                ion-col {
+                    margin-top: 20px;
+
+                    ion-text {
+                        h2 {
+                            font-size  : 18px;
+                            font-weight: 600;
+                        }
+
+                        ul {
+                            padding-left: 20px;
+                            margin      : 0;
+
+                            li {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    ion-content {
+        .video {
+            margin-top: -75px;
+
+            video {
+                height: 150px;
+            }
+        }
+    }
+}

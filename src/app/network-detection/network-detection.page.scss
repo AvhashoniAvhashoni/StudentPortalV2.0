@@ -1,0 +1,16 @@
+ion-content {
+    .container {
+        position : relative;
+        top      : 50%;
+        transform: translateY(-50%);
+        padding  : 0;
+
+        .img {
+            text-align: center;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

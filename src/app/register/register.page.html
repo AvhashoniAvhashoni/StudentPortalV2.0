@@ -1,0 +1,75 @@
+<ion-content>
+  <div class="container">
+    <form [formGroup]="user" (submit)="register()">
+      <div class="img ion-margin">
+        <img src=".\assets\images\cropped-Deepeg-95x95.png">
+      </div>
+      <div class="ion-text-center">
+        <ion-text style="font-size: 13px;">
+          If you already have an account <span style="text-decoration: underline; color: #800030"
+            routerLink="/signin">Sign in</span>!
+        </ion-text>
+      </div>
+      <ion-list>
+        <ion-item>
+          <ion-label>First Name:</ion-label>
+          <ion-input type="text" formControlName="name" minlength="3" maxlength="30" required></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.name">
+            <div class="error-message" *ngIf="user.get('name').hasError(validation.type) && user.get('name').touched">
+              <p class="error">{{ validation.message }}</p>
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-label>Surname:</ion-label>
+          <ion-input type="text" formControlName="surname" minlength="3" maxlength="30" required></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.surname">
+            <div class="error-message"
+              *ngIf="user.get('surname').hasError(validation.type) && user.get('surname').touched">
+              <p class="error">{{ validation.message }}</p>
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-label>Email:</ion-label>
+          <ion-input type="email" formControlName="email" required></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.email">
+            <div class="error-message" *ngIf="user.get('email').hasError(validation.type) && user.get('email').touched">
+              <p class="error">{{ validation.message }}</p>
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-label>Password:</ion-label>
+          <ion-input type="password" formControlName="password" minlength="6" maxlength="16" required>
+          </ion-input>
+        </ion-item>
+        <div class="validation-errors" style="height: 30px;">
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error-message"
+              *ngIf="user.get('password').hasError(validation.type) && user.get('password').touched">
+              <p class="error">{{ validation.message }}</p>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!user.get('password').touched">
+            <p class="error" style="color: black;">
+              Password should contain characters, numbers, lowercase and uppercase letters!
+            </p>
+          </ng-container>
+        </div>
+      </ion-list>
+      <div class="ion-text-center ion-margin">
+        <ion-spinner *ngIf="spinner"></ion-spinner>
+        <button *ngIf="!spinner" type="submit">
+          <ion-text>Sign up</ion-text>
+        </button>
+      </div>
+    </form>
+  </div>
+</ion-content>

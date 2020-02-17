@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-uppercase">My Courses</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <h1 class="ion-margin-top">Courses</h1>
+    <div class="appliedCourse" id="top" *ngFor="let c of [1,2,3,4,5,6,7,8,9,0]">
+      <img src="/assets/images/home/courses/1.jpg">
+      <ion-text>
+        <h1>Bricklaying and Plastering</h1>
+        <p class="ion-no-margin" style="margin: 0;">C1-ga-sa</p>
+        <p>
+          Badges are a small component that typically communicate a numerical value to the user.
+        </p>
+        <ion-icon name="alert-circle-outline" class="ion-float-right"></ion-icon>
+        <p>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+        </p>
+      </ion-text>
+    </div>
+  </div>
+</ion-content>

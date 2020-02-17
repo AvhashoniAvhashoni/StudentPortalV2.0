@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar color="tertiary" class="ion-text-uppercase">
+    <ion-buttons slot="start">
+    </ion-buttons>
+    <ion-title>Payment</ion-title>
+    <ion-back-button autoHide="false" slot="start"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <h3 class="ion-margin-top">Account Details</h3>
+    <ion-grid class="ion-text-capitalize">
+      <ion-row>
+        <ion-col size="6">
+          <p>
+            <strong>Bank Name:</strong>
+          </p>
+        </ion-col>
+        <ion-col size="6">
+          <p>
+            ddfs
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <p>
+            <strong>Branch Code:</strong>
+          </p>
+        </ion-col>
+        <ion-col size="6">
+          <p>
+            ddfs
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <p>
+            <strong>Account Name:</strong>
+          </p>
+        </ion-col>
+        <ion-col size="6">
+          <p>
+            ddfs
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <p>
+            <strong>Account Number:</strong>
+          </p>
+        </ion-col>
+        <ion-col size="6">
+          <p>
+            ddfs
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <p>
+            <strong>Reference:</strong>
+          </p>
+        </ion-col>
+        <ion-col size="6">
+          <p>
+            ddfs
+          </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col size="12">
+          <p>
+            <strong>Disclaimer:</strong>
+          </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col size="12">
+          <p>
+            <strong>Upload your proof of payment below:</strong>
+          </p>
+          <div class="upload" (click)="fileinput.click()">
+            <ion-icon name="cloud-upload-outline" *ngIf="!proofOfPayUrl"></ion-icon>
+            <ion-icon name="thumbs-up-sharp" *ngIf="proofOfPayUrl"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" fill="outline" routerLink="/landing">
+      Upload later
+    </ion-button>
+    <ion-button class="ion-margin-bottom ion-text-capitalize ion-float-right" color="tertiary" (click)="submit()">
+      Upload Now
+    </ion-button>
+  </div>
+</ion-content>
+
+
+<input type="file" (change)="uploadProofOfPay($event)" style="display:none" accept="application/pdf" #fileinput>

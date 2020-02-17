@@ -1,0 +1,110 @@
+ion-content {
+    ion-slides {
+        --bullet-background       : #800020;
+        --bullet-background-active: #800020;
+        height                    : 100vh;
+        width                     : 100% !important;
+
+        ion-img {
+            // max-width : 50vw;
+            // max-height: 50vh;
+            height       : 100%;
+        }
+
+        ion-grid {
+            height: 100%;
+            width : 100%;
+
+            .top {
+                background-color: #800020;
+                height          : 70vh;
+                text-align      : center;
+                overflow        : scroll;
+
+                .slide3 {
+                    width : 20% !important;
+                    height: 150px !important;
+
+                    img {
+                        width : 100% !important;
+                        height: 150px !important;
+                    }
+                }
+            }
+
+            .bottom {
+                // background-color: rgba(165, 137, 137, 0.692);
+                height             : 30vh;
+                padding            : 8px;
+                color              : rgba(36, 49, 56, 0.986);
+                text-align         : center;
+
+                div {
+                    margin: auto;
+                }
+
+                h1 {
+                    font-size  : 1.1em;
+                    font-weight: 650;
+                }
+
+                p {
+                    font-size  : .8em;
+                    font-weight: 300;
+                }
+
+                ion-text {
+                    position: absolute;
+                    top     : 65vh;
+                    right   : 10px;
+                }
+
+                ion-text:focus {
+                    outline: none;
+                }
+            }
+
+        }
+    }
+
+}
+
+@media only screen and (max-width: 800px) {
+    ion-content {
+        ion-slides {
+            ion-grid {
+                .top {
+                    .slide3 {
+                        width : 25% !important;
+                        height: 150px !important;
+
+                        img {
+                            width : 100% !important;
+                            height: 150px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    ion-content {
+        ion-slides {
+            ion-grid {
+                .top {
+                    .slide3 {
+                        width : 50% !important;
+                        height: 130px !important;
+
+                        img {
+                            width : 100% !important;
+                            height: 130px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

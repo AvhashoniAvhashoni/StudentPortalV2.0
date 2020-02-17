@@ -1,0 +1,50 @@
+ion-content {
+    .container {
+        position : relative;
+        top      : 50%;
+        transform: translateY(-50%);
+
+        button {
+            border-radius   : 10px;
+            background-color: #800020;
+            color           : white;
+            padding         : 7px 30px;
+            text-align      : center;
+        }
+
+        .img {
+            text-align: center;
+
+            img {
+                width: 50%;
+            }
+        }
+
+        a {
+            color: #800020;
+        }
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    ion-content {
+        .container {
+            width: 50%;
+        }
+    }
+}
+
+button:focus {
+    outline: none;
+}
+
+span:focus {
+    outline: none;
+}
+
+.errors {
+    color     : red;
+    font-size : 13px;
+    text-align: center;
+    height    : 20px;
+}

@@ -1,0 +1,145 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-uppercase">
+      Profile
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container ion-no-padding">
+    <section>
+      <div class="img ion-padding">
+        <ion-grid>
+          <ion-row>
+            <ion-col></ion-col>
+            <ion-col>
+              <img *ngIf="!user.profilePicUrl"
+                src="https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+              <img *ngIf="user.profilePicUrl" [src]="user.profilePicUrl">
+              <h1>
+                <ion-icon name="camera" color="tertiary" (click)="takePicture()"></ion-icon>
+              </h1>
+              {{user.email}}
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </section>
+    <section>
+      <ion-grid class="ion-no-padding">
+        <div class="details">
+          <div class="heading">
+            <h1 style="width: 100%;">
+              Personal Details
+              <!-- <ion-icon name="ellipsis-vertical-circle-outline" class="ion-float-right"></ion-icon> -->
+              <ion-icon name="pencil-outline" class="ion-float-right"></ion-icon>
+            </h1>
+          </div>
+          <div class="personal">
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+          </div>
+
+          <div class="heading">
+            <h1>
+              Address
+              <ion-icon name="chevron-down-outline" class="ion-float-right" *ngIf="!addr" (click)="open('addr')">
+              </ion-icon>
+              <ion-icon name="chevron-up-outline" class="ion-float-right" *ngIf="addr" (click)="open('addr')">
+              </ion-icon>
+            </h1>
+          </div>
+          <div class="address" *ngIf="addr">
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+          </div>
+
+          <div class="heading">
+            <h1>
+              Gardian Details
+              <ion-icon name="chevron-down-outline" class="ion-float-right" *ngIf="!gaurd" (click)="open('gaurd')">
+              </ion-icon>
+              <ion-icon name="chevron-up-outline" class="ion-float-right" *ngIf="gaurd" (click)="open('gaurd')">
+              </ion-icon>
+            </h1>
+          </div>
+          <div class="gardian" *ngIf="gaurd">
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size=6>Name</ion-col>
+              <ion-col size=6>Name</ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ion-grid>
+    </section>
+  </div>
+</ion-content>

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-uppercase">
+      Course Content
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="heading">
+    <div class="img">
+      <img src="/assets/images/PDF icon.png">
+    </div>
+    <ion-text>
+      <h1>Documents</h1>
+      <p class="ion-no-margin">Course:
+        <br />
+        Bricklaying and Plastering
+      </p>
+    </ion-text>
+  </div>
+  <div class="container">
+    <h5 class="ion-padding-top ion-margin-start">Downloadable content</h5>
+    <div class="empty"></div>
+    <ion-list lines="none">
+      <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8,9]">
+        <h1>{{i}}</h1>
+        <ion-icon name="arrow-down-circle-outline" slot="end"></ion-icon>
+        <ion-text>
+					<h5 class="ion-no-margin">
+						Hello World
+					</h5>
+					Date: 07/02/2020
+				</ion-text>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-padding" style="background-color: white;">
+  <div class="btn-group">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-text-center">
+        <ion-col class="active">PDF</ion-col>
+        <ion-col class="center" routerLink="/news">News</ion-col>
+        <ion-col routerLink="/video">Video</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-footer>

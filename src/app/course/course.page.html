@@ -1,0 +1,66 @@
+<ion-content>
+  <div class="intro" [ngStyle]="{'background-image': 'url(' + (course.coverUrl)  + ')'}">
+    <button class="ion-margin" routerLink="/landing">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </button>
+    <div class="container">
+      <ion-text color="light">
+        <h1><strong>{{course.name}}</strong></h1>
+        <p>{{course.description}}</p>
+        <div class="badges">
+          <button class="bedge ion-text-capitalize">
+            <span class="fa fa-star checked"></span>
+            4.5
+          </button>
+          <button class="bedge ion-text-capitalize">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            2500 Enrolled
+          </button>
+          <button class="bedge ion-text-capitalize">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            2 Months
+          </button>
+          <button class="bedge ion-text-capitalize">
+            <i class="fa fa-tag" aria-hidden="true"></i>
+            R {{course.fee}}
+          </button>
+          <button class="bedge ion-text-capitalize">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            29 Feb 2020
+          </button>
+        </div>
+      </ion-text>
+    </div>
+  </div>
+  <div class="video">
+    <video controls height="300px" width="80%" controlsList="nodownload">
+      <source src="/assets/videos/VID-20200125-WA0000.mp4" type="video/mp4">
+      Video is not supported.
+    </video>
+  </div>
+  <div class="container">
+    <ion-grid>
+      <ion-row class="ion-text-capitalize">
+        <ion-col size="6">
+          <ion-text>
+            <h2>Fees Includes</h2>
+            <ul>
+              <li *ngFor="let f of course.feeInclude">{{f}}</li>
+            </ul>
+          </ion-text>
+        </ion-col>
+        <ion-col size="6">
+          <ion-text>
+            <h2>Requirements</h2>
+            <ul>
+              <li *ngFor="let r of course.requirement">{{r}}</li>
+            </ul>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full" routerLink="/enroll">
+      Apply Now
+    </ion-button>
+  </div>
+</ion-content>

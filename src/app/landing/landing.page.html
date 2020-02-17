@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-icon name="notifications" class="ion-float-right ion-padding-end" color="light"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>HOME</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!loader">
+  <div class="appliedCourse" id="top">
+    <img src="/assets/images/home/courses/1.jpg">
+    <ion-text>
+      <p class="ion-no-margin">You have enrolled for:</p>
+      <h1>Bricklaying and Plastering</h1>
+      <ion-button color="tertiary" class="ion-text-capitalize" size="small">View Content</ion-button>
+    </ion-text>
+  </div>
+  <div class="container">
+    <h1 class="ion-padding-top">Courses others have enrolled for:</h1>
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col class="ion-no-padding" size="6" size-md="4" size-lg="3" size-lg="2" *ngFor="let c of this.courses">
+          <ion-card class="ion-no-margin">
+            <img [src]="c.coverUrl" (click)="viewCourse(c)">
+            <ion-card-content>
+              <ion-text>
+                <h1>{{c.name}}</h1>
+                <p>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                </p>
+                <p><strong>R{{c.fee}}</strong> </p>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-text-center">
+      <ion-button color="tertiary" class="ion-text-capitalize ion-margin-bottom" fill="outline" size="small"
+        (click)="scroll()">
+        Scroll to Top
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="loader">
+  <div class="appliedCourse" id="top">
+    <ion-skeleton-text class="img" style="width: 150px; height: 100px;" animated></ion-skeleton-text>
+    <ion-text>
+      <p class="ion-no-margin">
+        <ion-skeleton-text style="width: 50%; height: 12px;" animated></ion-skeleton-text>
+      </p>
+      <h1>
+        <ion-skeleton-text style="width: 80%; height: 18px;" animated></ion-skeleton-text>
+      </h1>
+      <h1>
+        <ion-skeleton-text style="width: 60%; height: 18px;" animated></ion-skeleton-text>
+      </h1>
+      <p>
+        <ion-skeleton-text class="button" style="width: 100px; height: 25px;" animated></ion-skeleton-text>
+      </p>
+    </ion-text>
+  </div>
+  <div class="container">
+    <ion-grid class="ion-no-padding ion-margin-top">
+      <ion-row>
+        <ion-col class="ion-no-padding" size="6" size-md="4" size-lg="3" size-lg="2"
+          *ngFor="let o of [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9]">
+          <ion-card class="ion-no-margin">
+            <ion-skeleton-text style="width: 100%; height: 100px;" animated></ion-skeleton-text>
+            <ion-card-content>
+              <ion-text>
+                <p class="ion-no-margin">
+                  <ion-skeleton-text style="width: 80%; height: 15px;" animated></ion-skeleton-text>
+                </p>
+                <p class="ion-no-margin">
+                  <ion-skeleton-text style="width: 60px;" animated></ion-skeleton-text>
+                </p>
+                <p class="ion-no-margin">
+                  <ion-skeleton-text style="width: 40%; height: 12px;" animated></ion-skeleton-text>
+                </p>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ion-text-center">
+      <ion-button color="tertiary" class="ion-text-capitalize ion-margin-bottom" fill="outline" size="small"
+        (click)="scroll()">
+        Scroll to Top
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

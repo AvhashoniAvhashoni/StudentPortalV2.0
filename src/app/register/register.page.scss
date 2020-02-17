@@ -1,0 +1,73 @@
+ion-content {
+    .container {
+        position : relative;
+        top      : 50%;
+        transform: translateY(-50%);
+
+        button {
+            border-radius   : 10px;
+            background-color: #800020;
+            color           : white;
+            padding         : 7px 30px;
+            text-align      : center;
+        }
+
+        .img {
+            text-align: center;
+
+            img {
+                width: 50%;
+            }
+        }
+    }
+}
+
+ion-footer {
+    ion-grid {
+        padding         : 0;
+        background-color: #F6F6F6;
+
+        #bottom-btn {
+            text-align: center;
+
+            #signIn {
+                border-top: 1px solid #800020;
+                color     : #800020;
+            }
+
+            #signUp {
+                background-color: #800020;
+                border          : 1px solid #800020;
+                color           : white;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    ion-content {
+        .container {
+            width: 50%;
+        }
+    }
+}
+
+button:focus {
+    outline: none;
+}
+
+span:focus {
+    outline: none;
+}
+
+.validation-errors {
+    color    : red;
+    font-size: 12px;
+    height   : 15px;
+
+    p {
+        margin      : 0;
+        padding     : 0;
+        padding-left: 15px;
+    }
+}

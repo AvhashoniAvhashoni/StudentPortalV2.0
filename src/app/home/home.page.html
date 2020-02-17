@@ -1,0 +1,48 @@
+<ion-content no-bounce>
+	<ion-slides #slides pager>
+		<ion-slide>
+			<ion-grid class="ion-no-padding">
+				<ion-row class="top">
+					<img class="ion-padding" src="/assets/images/home/320 x 480 (2).png">
+				</ion-row>
+				<ion-row class="bottom">
+					<div>
+						<h1>Plumbing</h1>
+						<p>The Ionic Master Course demo app explores the possibilites in Ionic 4.</p>
+					</div>
+				</ion-row>
+			</ion-grid>
+		</ion-slide>
+		<ion-slide>
+			<ion-grid class="ion-no-padding">
+				<ion-row class="top">
+					<img class="ion-padding" src="/assets/images/home/320 x 480.png">
+				</ion-row>
+				<ion-row class="bottom">
+					<div>
+						<h1>Carpentry</h1>
+						<p>The Ionic Master Course demo app explores the possibilites in Ionic 4.</p>
+					</div>
+				</ion-row>
+			</ion-grid>
+		</ion-slide>
+		<ion-slide>
+			<ion-grid class="ion-no-padding">
+				<ion-row class="top ion-no-margin">
+					<span class="slide3" *ngFor="let i of imageIndexes" style="background-color: gray;">
+						<img src="/assets/images/home/courses/{{i}}.jpg">
+					</span>
+				</ion-row>
+				<ion-row class="bottom">
+					<div>
+						<h1>Apply Now!</h1>
+						<p>The Ionic Master Course demo app explores the possibilites in Ionic 4.</p>
+						<ion-button routerLink="/signin" class="ion-text-capitalize" color="tertiary">
+							Sign in to view more
+						</ion-button>
+					</div>
+				</ion-row>
+			</ion-grid>
+		</ion-slide>
+	</ion-slides>
+</ion-content>

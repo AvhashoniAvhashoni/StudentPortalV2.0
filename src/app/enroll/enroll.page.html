@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title class="ion-text-uppercase">Enroll
+    </ion-title>
+    <ion-back-button autoHide="false" slot="start"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container ion-padding-top ion-padding-bottom">
+    <ion-text>
+      <strong>Enrollment for:</strong>
+      <span class="ion-text-capitalize">
+        Bricklaying and Plastering
+      </span>
+    </ion-text>
+    <ion-item class="ion-margin-top">
+      <strong>Upload the following documents:</strong>
+    </ion-item>
+    <ion-grid>
+      <ion-row class="ion-text-capitalize">
+        <ion-col size="6">
+          <div (click)="fileinput1.click()">
+            <ion-icon name="cloud-upload-outline" *ngIf="!idUrl"></ion-icon>
+            <ion-icon name="thumbs-up-sharp" *ngIf="idUrl"></ion-icon>
+            <p>Certified ID copy</p>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div (click)="fileinput2.click()">
+            <ion-icon name="cloud-upload-outline" *ngIf="!cvUrl"></ion-icon>
+            <ion-icon name="thumbs-up-sharp" *ngIf="cvUrl"></ion-icon>
+            <p>CV</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-no-padding-top">
+          <div (click)="fileinput3.click()">
+            <ion-icon name="cloud-upload-outline" *ngIf="!resultsUrl"></ion-icon>
+            <ion-icon name="thumbs-up-sharp" *ngIf="resultsUrl"></ion-icon>
+            <p> Certified NQF level 1 or Grade 9 results</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full" (click)="submit()">
+      Submit
+    </ion-button>
+  </div>
+</ion-content>
+
+<input type="file" (change)="uploadID($event)" style="display:none" accept="application/pdf" #fileinput1>
+<input type="file" (change)="uploadProofOfRes($event)" style="display:none" accept="application/pdf" #fileinput2>
+<input type="file" (change)="uploadResults($event)" style="display:none" accept="application/pdf" #fileinput3>
