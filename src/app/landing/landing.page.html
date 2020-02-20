@@ -1,27 +1,26 @@
 <ion-header>
   <ion-toolbar color="tertiary">
     <ion-icon name="notifications" class="ion-float-right ion-padding-end" color="light"></ion-icon>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+    <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>HOME</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="!loader">
-  <div class="appliedCourse" id="top">
-    <img src="/assets/images/home/courses/1.jpg">
+  <div class="appliedCourse" id="top" *ngFor="let c of registeredCoures">
+    <img [src]="c.coverUrl">
     <ion-text>
       <p class="ion-no-margin">You have enrolled for:</p>
-      <h1>Bricklaying and Plastering</h1>
-      <ion-button color="tertiary" class="ion-text-capitalize" size="small">View Content</ion-button>
+      <h1>{{c.name}}</h1>
+      <ion-button color="tertiary" class="ion-text-capitalize" size="small" routerLink="/enrolledcoursesinfo">View info
+      </ion-button>
     </ion-text>
   </div>
   <div class="container">
     <h1 class="ion-padding-top">Courses others have enrolled for:</h1>
     <ion-grid class="ion-no-padding">
       <ion-row>
-        <ion-col class="ion-no-padding" size="6" size-md="4" size-lg="3" size-lg="2" *ngFor="let c of this.courses">
+        <ion-col class="ion-no-padding" size="6" size-md="4" size-lg="3" size-lg="2" *ngFor="let c of courses">
           <ion-card class="ion-no-margin">
             <img [src]="c.coverUrl" (click)="viewCourse(c)">
             <ion-card-content>

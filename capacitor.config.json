@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "StudentPortalMobileApplication",
+  "appId": "io.codeup.studentportal",
+  "appName": "Student Portal",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

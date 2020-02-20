@@ -45,7 +45,7 @@
           <ion-text>
             <h2>Fees Includes</h2>
             <ul>
-              <li *ngFor="let f of course.feeInclude">{{f}}</li>
+              <li *ngFor="let f of course.feesInclude">{{f}}</li>
             </ul>
           </ion-text>
         </ion-col>
@@ -59,7 +59,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full" routerLink="/enroll">
+    <ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full" [disabled]="!applyBtn" (click)="apply()">
       Apply Now
     </ion-button>
   </div>

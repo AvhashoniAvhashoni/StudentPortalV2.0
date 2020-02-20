@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidateId } from '../class/validateid';
 import { User } from '../class/user';
 import { AppService, Feature } from '../app.service';
+import { StudentCourse } from '../class/studentCourse';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -25,8 +28,11 @@ export class RegistrationPage implements OnInit, DoCheck {
   public addresses: string[] = [];
   public selectedAddress = null;
   public searchHeight: boolean = false;
+  public course: any = null;
+  public studentCourse: StudentCourse;
+  public allowRegister: boolean = false;
 
-  constructor(private _service: AppService) { }
+  constructor(private _service: AppService, private _toastController: ToastController, private _router: Router) { }
   ngDoCheck() {
     if (this.dobErr != "Incorrect ID or date of birth!") {
       this.user.controls["dob"].setErrors(null);
@@ -78,6 +84,36 @@ export class RegistrationPage implements OnInit, DoCheck {
       this.user.controls["gCell"].setValue(this.currentUser.guardian.cellNr);
     }
     this.address = this.currentUser.address;
+
+    this._service.readStudentCourse(this.currentUser.id).subscribe(res => {
+      if (res.length > 0) {
+        let studentCourse: any = res.map(sc => {
+          return {
+            id: sc.payload.doc.id,
+            ...sc.payload.doc.data()
+          } as StudentCourse
+        });
+        for (let sc of studentCourse) {
+          if (sc.status && !sc.dateRegistered) {
+            this.studentCourse = sc;
+            this.allowRegister = true;
+            this._service.readCourse(sc.courseID).subscribe(course => {
+              this.course = course;
+            });
+          }
+        }
+      }
+    });
+  }
+
+  ionViewDidEnter() {
+    setTimeout(() => {
+      if (!this.allowRegister) {
+        this.presentToast("You are not permitted to register!").then(res => {
+          this._router.navigateByUrl("/landing");
+        })
+      }
+    }, 1000);
   }
 
   user = new FormGroup({
@@ -168,7 +204,8 @@ export class RegistrationPage implements OnInit, DoCheck {
       }
 
       if (this.user.value.cell && this.user.get("cell").valid) {
-        this.currentUser.cellNumber = this.user.value.cellno;
+        this.currentUser.cellNumber = this.user.value.cell;
+        console.log(this.user.value.cell)
       } else {
         this.user.get("cell").markAsTouched({ onlySelf: true });
       }
@@ -266,9 +303,23 @@ export class RegistrationPage implements OnInit, DoCheck {
     if (this.user.valid) {
       this._service.updateUser(this.currentUser).then(res => {
         this._service.setLocal("user", this.currentUser);
+        this.studentCourse.dateRegistered = new Date();
+        this._service.updateStudentCourse(this.studentCourse).then(res => {
+          this._router.navigateByUrl("/enrolledcourses");
+          this.presentToast("Registration successful!")
+        });
       }).catch(err => {
         console.log(err);
       });
     }
+  }
+
+  async presentToast(message: string) {
+    const toast = await this._toastController.create({
+      message: message,
+      duration: 3000,
+      color: "tertiary"
+    });
+    toast.present();
   }
 }

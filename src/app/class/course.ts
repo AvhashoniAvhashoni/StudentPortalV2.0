@@ -7,7 +7,7 @@ export class Course {
     public name: string;
     public paymentDuration: string;
     public coverUrl: string;
-    public feeInclude: any;
+    public feesInclude: any;
     public requirement: any;
     public deposit: number;
     public startDate: Date;

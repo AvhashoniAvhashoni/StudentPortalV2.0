@@ -1,31 +1,120 @@
 <ion-header>
   <ion-toolbar color="tertiary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+    <ion-menu-button slot="start"></ion-menu-button>
     <ion-title class="ion-text-uppercase">My Courses</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <div class="container">
-    <h1 class="ion-margin-top">Courses</h1>
-    <div class="appliedCourse" id="top" *ngFor="let c of [1,2,3,4,5,6,7,8,9,0]">
-      <img src="/assets/images/home/courses/1.jpg">
-      <ion-text>
-        <h1>Bricklaying and Plastering</h1>
-        <p class="ion-no-margin" style="margin: 0;">C1-ga-sa</p>
-        <p>
-          Badges are a small component that typically communicate a numerical value to the user.
-        </p>
-        <ion-icon name="alert-circle-outline" class="ion-float-right"></ion-icon>
-        <p>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-        </p>
-      </ion-text>
+    <div *ngIf="!loader">
+      <h1 class="ion-margin-top">Courses</h1>
+      <div *ngIf="isAcceptedCourse">
+        <h5>Accepted course</h5>
+        <div class="appliedCourse" id="top" *ngFor="let c of acceptedCourse">
+          <img [src]="c.coverUrl">
+          <ion-text>
+            <h1>{{c.name}}</h1>
+            <p class="ion-no-margin" style="margin: 0;">{{c.code}}</p>
+            <p>
+              {{c.description}}
+            </p>
+            <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </p>
+              <!-- <span class="ion-float-right"> -->
+              <ion-button size="small" color="tertiary" style="font-size: 8px; margin-left: 80%;" routerLink="/payment">
+                Register
+              </ion-button>
+              <!-- </span> -->
+          </ion-text>
+        </div>
+      </div>
+      <div *ngIf="isRegisteredCoures">
+        <h5>Registered course</h5>
+        <div class="appliedCourse" id="top" *ngFor="let c of registeredCoures">
+          <img [src]="c.coverUrl">
+          <ion-text>
+            <h1>{{c.name}}</h1>
+            <p class="ion-no-margin" style="margin: 0;">{{c.code}}</p>
+            <p>
+              {{c.description}}
+            </p>
+            <ion-icon name="alert-circle-outline" class="ion-float-right" (click)="info(c)"></ion-icon>
+            <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </p>
+          </ion-text>
+        </div>
+      </div>
+      <div *ngIf="isUnacceptedCourse">
+        <h5>Pending course</h5>
+        <div class="appliedCourse" id="top" *ngFor="let c of unacceptedCourse">
+          <img [src]="c.coverUrl">
+          <ion-text>
+            <h1>{{c.name}}</h1>
+            <p class="ion-no-margin" style="margin: 0;">{{c.code}}</p>
+            <p>
+              {{c.description}}
+            </p>
+            <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </p>
+          </ion-text>
+        </div>
+      </div>
+      <div *ngIf="isCompletedCourse">
+        <h5>Completed Course</h5>
+        <div class="appliedCourse" id="top" *ngFor="let c of completedCourse">
+          <img [src]="c.coverUrl">
+          <ion-text>
+            <h1>{{c.name}}</h1>
+            <p class="ion-no-margin" style="margin: 0;">{{c.code}}</p>
+            <p>
+              {{c.description}}
+            </p>
+            <p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </p>
+          </ion-text>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="loader">
+      <ion-skeleton-text class="button ion-margin-bottom ion-margin-top" style="width: 100px; height: 25px;" animated>
+      </ion-skeleton-text>
+      <div class="appliedCourse" *ngFor="let i of [1,2,3,4,5,6,7,8,9,0]">
+        <ion-skeleton-text class="img" style="width: 150px; height: 100px;" animated></ion-skeleton-text>
+        <ion-text>
+          <p class="ion-no-margin">
+            <ion-skeleton-text style="width: 50%; height: 12px;" animated></ion-skeleton-text>
+          </p>
+          <h1>
+            <ion-skeleton-text style="width: 80%; height: 18px;" animated></ion-skeleton-text>
+          </h1>
+          <h1>
+            <ion-skeleton-text style="width: 60%; height: 18px;" animated></ion-skeleton-text>
+          </h1>
+          <p>
+            <ion-skeleton-text class="button" style="width: 100px; height: 25px;" animated></ion-skeleton-text>
+          </p>
+        </ion-text>
+      </div>
     </div>
   </div>
 </ion-content>

@@ -33,14 +33,12 @@ export class PaymentPage implements OnInit {
 
   submit() {
     if (this.proofOfPayUrl) {
-      if (this.user.proofOfPayUrl) {
-        this.user.proofOfPayUrl.splice(this.user.proofOfPayUrl.length, 0, this.proofOfPayUrl);
-      } else {
-        this.user.proofOfPayUrl = [];
-        this.user.proofOfPayUrl.push(this.proofOfPayUrl);
+      if (!this.user.proofOfPayUrl.registration) {
+        this.user.proofOfPayUrl.registration = [];
       }
+      this.user.proofOfPayUrl.registration.push(this.proofOfPayUrl);
       this._service.updateUser(this.user).then(res => {
-        this._router.navigateByUrl("/finance");
+        this._router.navigateByUrl("/registration");
       }).catch(err => {
         console.log(err);
       });

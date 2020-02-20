@@ -44,10 +44,6 @@ const routes: Routes = [
     loadChildren: () => import('./registration/registration.module').then( m => m.RegistrationPageModule)
   },
   {
-    path: 'finance',
-    loadChildren: () => import('./finance/finance.module').then( m => m.FinancePageModule)
-  },
-  {
     path: 'payment',
     loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
   },
@@ -74,6 +70,10 @@ const routes: Routes = [
   {
     path: 'enrolledcourses',
     loadChildren: () => import('./enrolledcourses/enrolledcourses.module').then( m => m.EnrolledcoursesPageModule)
+  },
+  {
+    path: 'enrolledcoursesinfo',
+    loadChildren: () => import('./enrolledcoursesinfo/enrolledcoursesinfo.module').then( m => m.EnrolledcoursesinfoPageModule)
   }
 ];
 

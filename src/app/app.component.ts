@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -6,13 +6,18 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { User } from './class/user';
 import { AppService } from './app.service';
 import { Router } from '@angular/router';
+// import { Plugins, PluginListenerHandle, NetworkStatus } from "@capacitor/core";
+
+// const { Network } = Plugins;
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck, OnDestroy {
+  // private networkListener: PluginListenerHandle;
+  // private networkStatus: NetworkStatus;
   public profilePic: string = "https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
   public name: string = "";
   public email: string = "";
@@ -30,25 +35,20 @@ export class AppComponent implements OnInit {
       icon: 'person'
     },
     {
-      title: 'Registration',
-      url: '/registration',
-      icon: 'newspaper'
-    },
-    {
-      title: 'Registered Courses',
+      title: 'Courses',
       url: 'enrolledcourses',
-      icon: 'clipboard'
-    },
-    {
-      title: 'Course Content',
-      url: '/news',
       icon: 'easel'
     },
     {
-      title: 'Financial Statement',
-      url: '/finance',
-      icon: 'wallet'
+      title: 'Content',
+      url: '/news',
+      icon: 'newspaper'
     },
+    // {
+    //   title: 'Registration',
+    //   url: '/payment',
+    //   icon: 'newspaper'
+    // },
     {
       title: 'Log Out',
       url: '/logout',
@@ -75,19 +75,48 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.user = this._service.getLocal("user");
-    if (this.user.profilePicUrl) {
-      this.profilePic = this.user.profilePicUrl;
-    }
-    this.name = this.user.firstName;
-    this.email = this.user.email;
-
+  ngDoCheck() {
+    this.user = JSON.parse(localStorage.getItem("user"));
     if (this.user) {
+      if (this.user.profilePicUrl) {
+        this.profilePic = this.user.profilePicUrl;
+      }
+      this.name = this.user.firstName;
+      this.email = this.user.email;
+    }
+  }
+
+  async ngOnInit() {
+    const user = localStorage.getItem("user");
+    if (user) {
+      this._router.navigateByUrl("/landing");
       this._menuCtr.enable(true);
-      // this._router.navigateByUrl("landing");
-    } else {
+    } else if (!user) {
+      this._router.navigateByUrl("");
       this._menuCtr.enable(false);
     }
+    // this.networkListener = Network.addListener('networkStatusChange', status => {
+    //   this.networkStatus = status;
+    //   this.checkUser(this.networkStatus, user);
+    // });
+    // this.networkStatus = await Network.getStatus();
+    // this.checkUser(this.networkStatus, user);
+  }
+
+  // checkUser(networkStatus, user) {
+  //   if (user && networkStatus.connected) {
+  //     this._router.navigateByUrl("/landing");
+  //     this._menuCtr.enable(true);
+  //   } else if (!user && networkStatus.connected) {
+  //     this._router.navigateByUrl("");
+  //     this._menuCtr.enable(false);
+  //   } else {
+  //     this._router.navigateByUrl("/network-detection");
+  //     this._menuCtr.enable(false);
+  //   }
+  // }
+
+  ngOnDestroy() {
+    // this.networkListener.remove();
   }
 }

@@ -1,8 +1,6 @@
 <ion-header>
   <ion-toolbar color="tertiary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+    <ion-menu-button slot="start"></ion-menu-button>
     <ion-title class="ion-text-uppercase">
       Course Content
     </ion-title>
@@ -12,29 +10,43 @@
 <ion-content>
   <div class="heading">
     <div class="img">
-      <img src="/assets/images/PDF icon.png">
+      <img src="/assets/images/content/pdf.png">
     </div>
     <ion-text>
       <h1>Documents</h1>
       <p class="ion-no-margin">Course:
         <br />
-        Bricklaying and Plastering
+        {{courseName}}
       </p>
     </ion-text>
   </div>
   <div class="container">
     <h5 class="ion-padding-top ion-margin-start">Downloadable content</h5>
     <div class="empty"></div>
-    <ion-list lines="none">
-      <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8,9]">
-        <h1>{{i}}</h1>
-        <ion-icon name="arrow-down-circle-outline" slot="end"></ion-icon>
+    <ion-list lines="none" *ngIf="!loader">
+      <ion-item *ngFor="let c of courseContent; let i = index">
+        <h1>{{i+1}}</h1>
+        <ion-icon name="arrow-down-circle-outline" slot="end" (click)="download(c.fileUrl)"></ion-icon>
         <ion-text>
-					<h5 class="ion-no-margin">
-						Hello World
-					</h5>
-					Date: 07/02/2020
-				</ion-text>
+          <h5 class="ion-no-margin">
+            {{c.title}}
+          </h5>
+          Date: {{c.uploadDate | date: "dd/MM/yyyy"}}
+        </ion-text>
+      </ion-item>
+    </ion-list>
+
+    <ion-list lines="none" *ngIf="loader">
+      <ion-item *ngFor="let c of [1,2,3,4,5,6,7,8,9,0]">
+        <h1>
+          <ion-skeleton-text style="width: 100%; " animated></ion-skeleton-text>
+        </h1>
+        <ion-text>
+          <h5 class="ion-no-margin">
+            <ion-skeleton-text style="width: 100px; height: 14px;" animated></ion-skeleton-text>
+          </h5>
+          <ion-skeleton-text style="width: 200px; height: 14px;" animated></ion-skeleton-text>
+        </ion-text>
       </ion-item>
     </ion-list>
   </div>

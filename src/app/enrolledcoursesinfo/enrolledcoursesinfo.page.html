@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="tertiary" class="ion-text-uppercase">
+    <ion-title>Course Info</ion-title>
+    <ion-back-button autoHide="false" slot="start"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container ion-padding">
+    <img src="/assets/images/timetable.jpg">
+    <p>
+      <ion-icon name="arrow-down-circle-outline" class="ion-float-right"></ion-icon>
+      <span class="ion-float-right">
+        Download
+      </span>
+    </p>
+    <h5>Duration:</h5>
+    <p>
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      2 Months
+      <br>
+      <span style="color: rgb(44, 44, 44); font-size: 13px;">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        1 Feb 2020 - 31 Mar 2020
+      </span>
+    </p>
+    <h5 class="ion-no-margin">Statement</h5>
+    <p>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            Balance:
+          </ion-col>
+          <ion-col size="6">
+            R8000.00
+          </ion-col>
+        </ion-row>
+        <hr class="ion-no-margin" />
+        <ion-row>
+          <ion-col size="6">
+            Debit:
+          </ion-col>
+          <ion-col size="6">
+            R0.00
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            Credit:
+          </ion-col>
+          <ion-col size="6">
+            R0.00
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" class="ion-no-padding">
+          </ion-col>
+          <ion-col size="6" class="ion-no-padding">
+            <ion-button class="ion-text-capitalize" size="small" color="tertiary" expand="full" routerLink="/payment">
+              <ion-icon name="cloud-upload-outline"></ion-icon>Upload recipt
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </p>
+    <ion-button class="ion-text-capitalize" color="tertiary" expand="full" routerLink="/news">
+      View Content
+    </ion-button>
+  </div>
+</ion-content>

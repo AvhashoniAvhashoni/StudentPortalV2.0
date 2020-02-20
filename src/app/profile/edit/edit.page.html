@@ -1,0 +1,146 @@
+<ion-header>
+	<ion-toolbar color="tertiary ion-text-uppercase">
+		<ion-title>
+			Profile
+		</ion-title>
+		<ion-icon name="close" slot="end" (click)="closeModal()"></ion-icon>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div class="container ion-margin-top">
+		<form [formGroup]="user" (submit)="update()">
+			<div>
+				<h5>Personal Information </h5>
+				<ion-list>
+					<ion-item>
+						<ion-label>First Name:</ion-label>
+						<ion-input type="text" formControlName="name" minlength="3" maxlength="30" required></ion-input>
+					</ion-item>
+					<div class="validation-errors">
+						<ng-container *ngFor="let validation of validation_messages.name">
+							<div class="error-message"
+								*ngIf="user.get('name').hasError(validation.type) && (user.get('name').dirty || user.get('name').touched)">
+								<p class="error">{{ validation.message }}</p>
+							</div>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label>Last Name:</ion-label>
+						<ion-input type="text" formControlName="surname" minlength="3" maxlength="30"
+							[value]="currentUser.lastName" required>
+						</ion-input>
+					</ion-item>
+					<div class="validation-errors">
+						<ng-container *ngFor="let validation of validation_messages.surname">
+							<div class="error-message"
+								*ngIf="user.get('surname').hasError(validation.type) && (user.get('surname').dirty || user.get('surname').touched)">
+								<p class="error">{{ validation.message }}</p>
+							</div>
+						</ng-container>
+					</div>
+					<ion-item *ngIf="currentUser.cellNumber">
+						<ion-label id="labels" stacked>Cell number:</ion-label>
+						<ion-input color="white" type="tel" formControlName="cell" minlength="10" maxlength="10"
+							required></ion-input>
+					</ion-item>
+					<div class="validation-errors">
+						<ng-container *ngFor="let validation of validation_messages.cell">
+							<div class="error-message"
+								*ngIf="user.get('cell').hasError(validation.type) && (user.get('cell').touched)">
+								<p class="error">{{ validation.message }}</p>
+							</div>
+						</ng-container>
+					</div>
+				</ion-list>
+			</div>
+			<div *ngIf="currentUser.addressLn1">
+				<h5>Address</h5>
+				<ion-list style="padding-top: 0;">
+					<ion-item>
+						<ion-label id="labels" stacked>Address Line 1:</ion-label>
+						<ion-input color="white" type="text" formControlName="addressLn1" minlength="3" maxlength="100"
+							required>
+						</ion-input>
+					</ion-item>
+					<div class="validation-errors">
+						<ng-container *ngFor="let validation of validation_messages.addressLn1">
+							<div class="error-message"
+								*ngIf="user.get('addressLn1').hasError(validation.type) && (user.get('addressLn1').touched)">
+								<p class="error">{{ validation.message }}</p>
+							</div>
+						</ng-container>
+					</div>
+				</ion-list>
+				<div style="position: relative" *ngIf="editAddr || !address">
+					<ion-searchbar debounce=500 (ionInput)="search($event)" [value]="selectedAddress"></ion-searchbar>
+					<div style="position: absolute; width: 100%; z-index: 999;">
+						<ion-list lines="none" *ngIf="addresses.length > 0">
+							<ion-item button *ngFor="let address of addresses" (click)="onSelect(address)">
+								<ion-icon name="pin"></ion-icon>
+								{{ address }}
+							</ion-item>
+						</ion-list>
+					</div>
+				</div>
+				<ion-list style="padding-top: 0;" *ngIf="address">
+					<ion-item *ngFor="let a of address; let i = index">
+						{{ a }}<ion-icon name="create" slot="end" *ngIf="!editAddr && i == 0" (click)="editAddress()">
+						</ion-icon>
+					</ion-item>
+				</ion-list>
+			</div>
+			<div *ngIf="currentUser.guardian">
+				<h5>Details of Guardian</h5>
+				<ion-list>
+					<ion-item>
+						<ion-label id="labels" stacked>Names:</ion-label>
+						<ion-input color="white" type="text" formControlName="gName" minlength="3" maxlength="30"
+							required></ion-input>
+					</ion-item>
+					<div class="validation-errors">
+						<ng-container *ngFor="let validation of validation_messages.gName">
+							<div class="error-message"
+								*ngIf="user.get('gName').hasError(validation.type) && (user.get('gName').dirty || user.get('gName').touched)">
+								<p class="error">{{ validation.message }}</p>
+							</div>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label id="labels" stacked>Last Name:</ion-label>
+						<ion-input color="white" type="text" formControlName="gSurname" minlength="3" maxlength="30"
+							required></ion-input>
+					</ion-item>
+					<div class="validation-errors">
+						<ng-container *ngFor="let validation of validation_messages.gSurname">
+							<div class="error-message"
+								*ngIf="user.get('gSurname').hasError(validation.type) && (user.get('gSurname').dirty || user.get('gSurname').touched)">
+								<p class="error">{{ validation.message }}</p>
+							</div>
+						</ng-container>
+					</div>
+					<ion-item>
+						<ion-label id="labels" stacked>Cell Number:</ion-label>
+						<ion-input color="white" type="tel" formControlName="gCell" minlength="10" maxlength="10"
+							required></ion-input>
+					</ion-item>
+					<div class="validation-errors">
+						<ng-container *ngFor="let validation of validation_messages.gCell">
+							<div class="error-message"
+								*ngIf="user.get('gCell').hasError(validation.type) && (user.get('gCell').dirty || user.get('gCell').touched)">
+								<p class="error">{{ validation.message }}</p>
+							</div>
+						</ng-container>
+					</div>
+				</ion-list>
+			</div>
+			<div>
+				<div class="ion-text-end ion-margin">
+					<button type="submit" style="padding-top: 5px; padding-bottom: 5px;">
+						<ion-text>Update</ion-text>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</ion-content>

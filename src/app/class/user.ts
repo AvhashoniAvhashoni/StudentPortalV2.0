@@ -5,7 +5,7 @@ export class User {
     public firstName: string;
     public lastName: string;
     public idNumber?: string;
-    public proofOfPayUrl?: Array<any>;
+    public proofOfPayUrl?: Payment;
     public idUrl?: string;
     public cvUrl?: string;
     public resultsUrl?: string;
@@ -23,4 +23,10 @@ export class Guardian {
     public lastName?: string;
     public cellNr?: string;
     public altNr?: string;
+}
+
+export class Payment {
+    public enroll?: string;
+    public registration?: Array<string>;
+    public classFee?: string[];
 }

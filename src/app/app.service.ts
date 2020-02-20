@@ -6,6 +6,7 @@ import { User } from './class/user';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { StudentCourse } from './class/studentCourse';
 
 export interface MapboxOutput {
   attribution: string;
@@ -87,5 +88,17 @@ export class AppService {
       environment.mapbox.accessToken).pipe(map((res: MapboxOutput) => {
         return res.features;
       }))
+  }
+
+  async postStudentCourse(studentCourse: StudentCourse) {
+    return await this._firestore.collection("studentCourse").add(studentCourse);
+  }
+
+  readStudentCourse(uid: string) {
+    return this._firestore.collection("studentCourse", ref => ref.where("userID", "==", uid)).snapshotChanges();
+  }
+
+  async updateStudentCourse(userCourse: StudentCourse) {
+    return await this._firestore.collection("studentCourse").doc(userCourse.id).set(userCourse);
   }
 }

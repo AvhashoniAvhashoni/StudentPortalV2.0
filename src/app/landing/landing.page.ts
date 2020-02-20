@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { Course } from '../class/course';
+import { User } from '../class/user';
 
 @Component({
   selector: 'app-landing',
@@ -9,12 +10,38 @@ import { Course } from '../class/course';
   styleUrls: ['./landing.page.scss'],
 })
 export class LandingPage implements OnInit {
-  public loader: boolean = false;
+  public loader: boolean = true;
   public courses: any;
+  private user: User;
+  public registeredCoures: any;
   constructor(private _router: Router, private _service: AppService) { }
 
   ngOnInit() {
+    this.user = this._service.getLocal("user");
     this.readCourses();
+    this.enrolledCourse();
+  }
+
+  enrolledCourse() {
+    this._service.readStudentCourse(this.user.id).subscribe(rez => {
+      this.registeredCoures = [];
+      if (rez.length > 0) {
+        let studentCourse: any = rez.map(sc => {
+          return {
+            id: sc.payload.doc.id,
+            ...sc.payload.doc.data()
+          }
+        });
+        for (let sc of studentCourse) {
+          if (sc.status && sc.dateRegistered && !sc.courseComplete)
+            this._service.readCourse(sc.courseID).subscribe(res => {
+              this.registeredCoures.push(res);
+            }, err => {
+              console.log(err);
+            });
+        }
+      }
+    });
   }
 
   public readCourses(): void {
@@ -26,17 +53,15 @@ export class LandingPage implements OnInit {
           ...c.payload.doc.data()
         } as Course
       });
-      setTimeout(() => {
-        this.loader = false  
-      }, 1000);      
+      this.loader = false;
     }, err => {
       console.log(err);
-      this.loader = false
+      this.loader = false;
     });
   }
 
   scroll() {
-    document.getElementById("top").scrollIntoView({ behavior: "smooth" })
+    document.getElementById("top").scrollIntoView({ behavior: "smooth" });
   }
 
   viewCourse(course) {
