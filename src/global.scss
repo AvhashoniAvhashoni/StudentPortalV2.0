@@ -24,3 +24,13 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.alert-wrapper {
+
+	.altBtn {
+		background-color: #800020 !important;
+		color           : #fff !important;
+		text-transform  : capitalize !important;
+		font-weight     : 600 !important;
+	}
+}

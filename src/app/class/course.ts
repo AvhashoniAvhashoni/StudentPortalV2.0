@@ -11,7 +11,9 @@ export class Course {
     public requirement: any;
     public deposit: number;
     public startDate: Date;
+    public endDate: Date;
+    public closingDate: Date;
     public contents: any;
-    public video: string;
+    public coverVideoUrl: string;
     public rating: any;
 }

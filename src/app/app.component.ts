@@ -6,117 +6,117 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { User } from './class/user';
 import { AppService } from './app.service';
 import { Router } from '@angular/router';
-// import { Plugins, PluginListenerHandle, NetworkStatus } from "@capacitor/core";
+import { Plugins, PluginListenerHandle, NetworkStatus } from "@capacitor/core";
 
-// const { Network } = Plugins;
+const { Network } = Plugins;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit, DoCheck, OnDestroy {
-  // private networkListener: PluginListenerHandle;
-  // private networkStatus: NetworkStatus;
-  public profilePic: string = "https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
-  public name: string = "";
-  public email: string = "";
-  public user: User;
+    private networkListener: PluginListenerHandle;
+    private networkStatus: NetworkStatus;
+    public profilePic: string = "https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
+    public name: string = "";
+    public email: string = "";
+    public user: User;
 
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/landing',
-      icon: 'home'
-    },
-    {
-      title: 'Profile',
-      url: '/profile',
-      icon: 'person'
-    },
-    {
-      title: 'Courses',
-      url: 'enrolledcourses',
-      icon: 'easel'
-    },
-    {
-      title: 'Content',
-      url: '/news',
-      icon: 'newspaper'
-    },
-    // {
-    //   title: 'Registration',
-    //   url: '/payment',
-    //   icon: 'newspaper'
-    // },
-    {
-      title: 'Log Out',
-      url: '/logout',
-      icon: 'log-out'
+    public appPages = [
+        {
+            title: 'Home',
+            url: '/landing',
+            icon: 'home'
+        },
+        {
+            title: 'Profile',
+            url: '/profile',
+            icon: 'person'
+        },
+        {
+            title: 'Courses',
+            url: 'enrolledcourses',
+            icon: 'easel'
+        },
+        {
+            title: 'Content',
+            url: '/news',
+            icon: 'newspaper'
+        },
+        // {
+        //   title: 'Registration',
+        //   url: '/payment',
+        //   icon: 'newspaper'
+        // },
+        {
+            title: 'Log Out',
+            url: '/logout',
+            icon: 'log-out'
+        }
+    ];
+    public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+
+    constructor(
+        private platform: Platform,
+        private splashScreen: SplashScreen,
+        private statusBar: StatusBar,
+        private _menuCtr: MenuController,
+        private _service: AppService,
+        private _router: Router
+    ) {
+        this.initializeApp();
     }
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private _menuCtr: MenuController,
-    private _service: AppService,
-    private _router: Router
-  ) {
-    this.initializeApp();
-  }
-
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-  }
-
-  ngDoCheck() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    if (this.user) {
-      if (this.user.profilePicUrl) {
-        this.profilePic = this.user.profilePicUrl;
-      }
-      this.name = this.user.firstName;
-      this.email = this.user.email;
+    initializeApp() {
+        this.platform.ready().then(() => {
+            this.statusBar.styleDefault();
+            this.splashScreen.hide();
+        });
     }
-  }
 
-  async ngOnInit() {
-    const user = localStorage.getItem("user");
-    if (user) {
-      this._router.navigateByUrl("/landing");
-      this._menuCtr.enable(true);
-    } else if (!user) {
-      this._router.navigateByUrl("");
-      this._menuCtr.enable(false);
+    ngDoCheck() {
+        this.user = this._service.getLocal("user");
+        if (this.user) {
+            if (this.user.profilePicUrl) {
+                this.profilePic = this.user.profilePicUrl;
+            }
+            this.name = this.user.firstName;
+            this.email = this.user.email;
+        }
     }
-    // this.networkListener = Network.addListener('networkStatusChange', status => {
-    //   this.networkStatus = status;
-    //   this.checkUser(this.networkStatus, user);
-    // });
-    // this.networkStatus = await Network.getStatus();
-    // this.checkUser(this.networkStatus, user);
-  }
 
-  // checkUser(networkStatus, user) {
-  //   if (user && networkStatus.connected) {
-  //     this._router.navigateByUrl("/landing");
-  //     this._menuCtr.enable(true);
-  //   } else if (!user && networkStatus.connected) {
-  //     this._router.navigateByUrl("");
-  //     this._menuCtr.enable(false);
-  //   } else {
-  //     this._router.navigateByUrl("/network-detection");
-  //     this._menuCtr.enable(false);
-  //   }
-  // }
+    async ngOnInit() {
+        this.user = this._service.getLocal("user");
+        if (this.user) {
+            this._router.navigateByUrl("/landing");
+            this._menuCtr.enable(true);
+        } else if (!this.user) {
+            this._router.navigateByUrl("");
+            this._menuCtr.enable(false);
+        }
+        this.networkListener = Network.addListener('networkStatusChange', status => {
+            this.networkStatus = status;
+            this.checkUser(this.networkStatus);
+        });
+        this.networkStatus = await Network.getStatus();
+        this.checkUser(this.networkStatus);
+    }
 
-  ngOnDestroy() {
-    // this.networkListener.remove();
-  }
+    checkUser(networkStatus) {
+        if (this.user && networkStatus.connected) {
+            this._router.navigateByUrl("/landing");
+            this._menuCtr.enable(true);
+        } else if (!this.user && networkStatus.connected) {
+            this._router.navigateByUrl("");
+            this._menuCtr.enable(false);
+        } else {
+            this._router.navigateByUrl("/network-detection");
+            this._menuCtr.enable(false);
+        }
+    }
+
+    ngOnDestroy() {
+        this.networkListener.remove();
+    }
 }

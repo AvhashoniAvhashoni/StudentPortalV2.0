@@ -1,7 +1,8 @@
 {
   "name": "StudentPortalMobileApplication",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

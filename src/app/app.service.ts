@@ -98,6 +98,10 @@ export class AppService {
     return this._firestore.collection("studentCourse", ref => ref.where("userID", "==", uid)).snapshotChanges();
   }
 
+  readStudentCourse2(cid: string) {
+    return this._firestore.collection("studentCourse", ref => ref.where("courseID", "==", cid)).snapshotChanges();
+  }
+
   async updateStudentCourse(userCourse: StudentCourse) {
     return await this._firestore.collection("studentCourse").doc(userCourse.id).set(userCourse);
   }
