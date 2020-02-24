@@ -44,11 +44,6 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
             url: '/news',
             icon: 'newspaper'
         },
-        // {
-        //   title: 'Registration',
-        //   url: '/payment',
-        //   icon: 'newspaper'
-        // },
         {
             title: 'Log Out',
             url: '/logout',
@@ -92,31 +87,43 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
             this._router.navigateByUrl("/landing");
             this._menuCtr.enable(true);
         } else if (!this.user) {
-            this._router.navigateByUrl("");
+            if (localStorage.getItem("slides")) {
+                this._router.navigateByUrl("/signin");
+            } else {
+                this._router.navigateByUrl("");
+            }
             this._menuCtr.enable(false);
         }
-        this.networkListener = Network.addListener('networkStatusChange', status => {
-            this.networkStatus = status;
-            this.checkUser(this.networkStatus);
-        });
-        this.networkStatus = await Network.getStatus();
-        this.checkUser(this.networkStatus);
+        // this.networkListener = Network.addListener('networkStatusChange', status => {
+        //     this.networkStatus = status;
+        //     this.checkUser(this.networkStatus);
+        // });
+        // this.networkStatus = await Network.getStatus();
+        // this.checkUser(this.networkStatus);
     }
 
-    checkUser(networkStatus) {
-        if (this.user && networkStatus.connected) {
-            this._router.navigateByUrl("/landing");
-            this._menuCtr.enable(true);
-        } else if (!this.user && networkStatus.connected) {
-            this._router.navigateByUrl("");
-            this._menuCtr.enable(false);
-        } else {
-            this._router.navigateByUrl("/network-detection");
-            this._menuCtr.enable(false);
-        }
-    }
+    // checkUser(networkStatus) {
+    //     if (networkStatus.connected) {
+    //         if (this.user) {
+    //             this._router.navigateByUrl("/landing");
+    //             this._menuCtr.enable(true);
+    //         }
+    //     } else if (networkStatus.connected) {
+    //         if (!this.user) {
+    //             if (localStorage.getItem("slides")) {
+    //                 this._router.navigateByUrl("/signin");
+    //             } else {
+    //                 this._router.navigateByUrl("");
+    //             }
+    //             this._menuCtr.enable(false);
+    //         }
+    //     } else {
+    //         this._router.navigateByUrl("/network-detection");
+    //         this._menuCtr.enable(false);
+    //     }
+    // }
 
     ngOnDestroy() {
-        this.networkListener.remove();
+        // this.networkListener.remove();
     }
 }

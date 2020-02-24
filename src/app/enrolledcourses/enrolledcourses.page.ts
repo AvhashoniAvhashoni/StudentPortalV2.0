@@ -10,13 +10,13 @@ import { Router } from '@angular/router';
     styleUrls: ['./enrolledcourses.page.scss'],
 })
 export class EnrolledcoursesPage implements OnInit {
-    public registeredCoures: Array<Object>;
+    public registeredcourse: Array<Object>;
     public acceptedCourse: Array<Object>;
     public completedCourse: Array<Object>;
     public unacceptedCourse: Array<Object>;
     public isAcceptedCourse: boolean = false;
     public isCompletedCourse: boolean = false;
-    public isRegisteredCoures: boolean = false;
+    public isRegisteredcourse: boolean = false;
     public isUnacceptedCourse: boolean = false;
     public user: User;
     public loader: boolean = true;
@@ -28,15 +28,23 @@ export class EnrolledcoursesPage implements OnInit {
         this.courseList();
     }
 
+    ionViewDidEnter() {
+        setTimeout(res => {
+            if (!this.isAcceptedCourse && !this.isCompletedCourse && !this.isRegisteredcourse && !this.isUnacceptedCourse) {
+                this._router.navigateByUrl("/landing");
+            }
+        }, (1000));
+    }
+
     courseList() {
         this._service.readStudentCourse(this.user.id).subscribe(rez => {
-            this.registeredCoures = [];
+            this.registeredcourse = [];
             this.acceptedCourse = [];
             this.unacceptedCourse = [];
             this.completedCourse = [];
             this.isAcceptedCourse = false;
             this.isCompletedCourse = false;
-            this.isRegisteredCoures = false;
+            this.isRegisteredcourse = false;
             this.isUnacceptedCourse = false;
             if (rez.length > 0) {
                 let studentCourse: any = rez.map(sc => {
@@ -49,15 +57,19 @@ export class EnrolledcoursesPage implements OnInit {
                     if (sc.status && sc.dateRegistered && !sc.courseComplete)
                         this._service.readCourse(sc.courseID).subscribe(res => {
                             this.loader = false;
-                            this.registeredCoures.push(res);
-                            this.isRegisteredCoures = true;
+                            let course: any = res;
+                            course.id = sc.courseID;
+                            this.registeredcourse.push(course);
+                            this.isRegisteredcourse = true;
                         }, err => {
                             console.log(err);
                         });
                     if (sc.status && !sc.dateRegistered && !sc.courseComplete)
                         this._service.readCourse(sc.courseID).subscribe(res => {
                             this.loader = false;
-                            this.acceptedCourse.push(res);
+                            let course: any = res;
+                            course.id = sc.courseID;
+                            this.acceptedCourse.push(course);
                             this.isAcceptedCourse = true;
                         }, err => {
                             console.log(err);
@@ -65,7 +77,9 @@ export class EnrolledcoursesPage implements OnInit {
                     if (!sc.status && !sc.dateRegistered && !sc.courseComplete)
                         this._service.readCourse(sc.courseID).subscribe(res => {
                             this.loader = false;
-                            this.unacceptedCourse.push(res);
+                            let course: any = res;
+                            course.id = sc.courseID;
+                            this.unacceptedCourse.push(course);
                             this.isUnacceptedCourse = true;
                         }, err => {
                             console.log(err);
@@ -73,7 +87,9 @@ export class EnrolledcoursesPage implements OnInit {
                     if (sc.courseComplete)
                         this._service.readCourse(sc.courseID).subscribe(res => {
                             this.loader = false;
-                            this.completedCourse.push(res);
+                            let course: any = res;
+                            course.id = sc.courseID;
+                            this.completedCourse.push(course);
                             this.isCompletedCourse = true;
                         }, err => {
                             console.log(err);
@@ -88,5 +104,10 @@ export class EnrolledcoursesPage implements OnInit {
 
     info(course: Course) {
         this._router.navigateByUrl("/enrolledcoursesinfo");
+    }
+
+    register(course: Course) {
+        this._service.setLocal("enrollCourse", course);
+        this._router.navigateByUrl("/payment");
     }
 }

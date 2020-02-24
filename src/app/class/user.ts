@@ -27,6 +27,6 @@ export class Guardian {
 
 export class Payment {
     public enroll?: string;
-    public registration?: Array<string>;
+    public registration?: any;
     public classFee?: string[];
 }
