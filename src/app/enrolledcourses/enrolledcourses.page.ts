@@ -3,6 +3,7 @@ import { AppService } from '../app.service';
 import { User } from '../class/user';
 import { Course } from '../class/course';
 import { Router } from '@angular/router';
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-enrolledcourses',
@@ -18,10 +19,11 @@ export class EnrolledcoursesPage implements OnInit {
     public isCompletedCourse: boolean = false;
     public isRegisteredcourse: boolean = false;
     public isUnacceptedCourse: boolean = false;
+    public studentCourse: boolean = false;
     public user: User;
     public loader: boolean = true;
 
-    constructor(private _service: AppService, private _router: Router) { }
+    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController) { }
 
     ngOnInit() {
         this.user = this._service.getLocal("user");
@@ -31,6 +33,7 @@ export class EnrolledcoursesPage implements OnInit {
     ionViewDidEnter() {
         setTimeout(res => {
             if (!this.isAcceptedCourse && !this.isCompletedCourse && !this.isRegisteredcourse && !this.isUnacceptedCourse) {
+                this.presentToast("You have not enrolled for any course yet!");
                 this._router.navigateByUrl("/landing");
             }
         }, (1000));
@@ -47,6 +50,7 @@ export class EnrolledcoursesPage implements OnInit {
             this.isRegisteredcourse = false;
             this.isUnacceptedCourse = false;
             if (rez.length > 0) {
+                this.studentCourse = true;
                 let studentCourse: any = rez.map(sc => {
                     return {
                         id: sc.payload.doc.id,
@@ -109,5 +113,14 @@ export class EnrolledcoursesPage implements OnInit {
     register(course: Course) {
         this._service.setLocal("enrollCourse", course);
         this._router.navigateByUrl("/payment");
+    }
+
+    async presentToast(message: string) {
+        const toast = await this._toastController.create({
+            message: message,
+            duration: 3000,
+            color: "tertiary"
+        });
+        toast.present();
     }
 }
