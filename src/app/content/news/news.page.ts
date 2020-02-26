@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { User } from 'src/app/class/user';
 import { StudentCourse } from 'src/app/class/studentCourse';
 
@@ -16,8 +16,9 @@ export class NewsPage implements OnInit {
     public content: boolean = false;
     public loader: boolean = true;
     public isCourse: boolean = true;
+	// public isContent:boolean =
     public courseName: string = "";
-    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController) { }
+    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public alertController: AlertController) { }
 
     ngOnInit() {
         this.courseContents();
@@ -47,11 +48,11 @@ export class NewsPage implements OnInit {
                 if (userCourse[i].status && userCourse[i].dateRegistered && !userCourse[i].courseComplete) {
                     this._service.readCourse(userCourse[i].courseID).subscribe(courseRes => {
                         this.loader = false;
-                        this.content = true;
                         let course: any = courseRes;
                         this.isCourse = true;
                         this.courseName = course.name;
                         if (course.contents) {
+                        this.content = true;
                             for (let c of course.contents) {
                                 if (c.format == "news") {
                                     this.courseContent.push(c);
@@ -59,7 +60,7 @@ export class NewsPage implements OnInit {
                                 }
                             }
                         } else {
-                            console.log("No course content available");
+							this.presentAlert("No course content has been uploaded!");
                         }
                     }, err => {
                         this.loader = false;
@@ -80,5 +81,15 @@ export class NewsPage implements OnInit {
             color: "tertiary"
         });
         toast.present();
+    }
+
+    async presentAlert(message:string) {
+        const alert = await this.alertController.create({
+            header: 'Alert',
+            // subHeader: 'Subtitle',
+            message: message,
+            buttons: ['OK']
+        });
+        await alert.present();
     }
 }
