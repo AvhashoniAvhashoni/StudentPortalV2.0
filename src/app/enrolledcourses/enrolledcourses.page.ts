@@ -3,7 +3,7 @@ import { AppService } from '../app.service';
 import { User } from '../class/user';
 import { Course } from '../class/course';
 import { Router } from '@angular/router';
-import {ToastController} from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-enrolledcourses',
@@ -107,6 +107,7 @@ export class EnrolledcoursesPage implements OnInit {
     }
 
     info(course: Course) {
+        this._service.setSession("enrolledCourseInfo", course);
         this._router.navigateByUrl("/enrolledcoursesinfo");
     }
 
