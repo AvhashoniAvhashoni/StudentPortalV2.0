@@ -39,7 +39,7 @@
 							</div>
 						</ng-container>
 					</div>
-					<ion-item *ngIf="currentUser.cellNumber">
+					<ion-item >
 						<ion-label id="labels" stacked>Cell number:</ion-label>
 						<ion-input color="white" type="tel" formControlName="cell" minlength="10" maxlength="10"
 							required></ion-input>
@@ -54,7 +54,7 @@
 					</div>
 				</ion-list>
 			</div>
-			<div *ngIf="currentUser.addressLn1">
+			<div >
 				<h5>Address</h5>
 				<ion-list style="padding-top: 0;">
 					<ion-item>
@@ -72,7 +72,7 @@
 						</ng-container>
 					</div>
 				</ion-list>
-				<div style="position: relative" *ngIf="editAddr || !address">
+				<div style="position: relative" *ngIf="editAddr">
 					<ion-searchbar debounce=500 (ionInput)="search($event)" [value]="selectedAddress"></ion-searchbar>
 					<div style="position: absolute; width: 100%; z-index: 999;">
 						<ion-list lines="none" *ngIf="addresses.length > 0">

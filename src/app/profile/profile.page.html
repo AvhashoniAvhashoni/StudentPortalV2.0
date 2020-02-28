@@ -1,126 +1,126 @@
 <ion-header>
-  <ion-toolbar color="tertiary">
-    <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title class="ion-text-uppercase">
-      Profile
-    </ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="tertiary">
+		<ion-menu-button slot="start"></ion-menu-button>
+		<ion-title class="ion-text-uppercase">
+			Profile
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="container ion-no-padding">
-    <section>
-      <div class="img ion-padding">
-        <ion-grid>
-          <ion-row>
-            <ion-col></ion-col>
-            <ion-col>
-              <img *ngIf="!user.profilePicUrl"
-                src="https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-              <img *ngIf="user.profilePicUrl" [src]="user.profilePicUrl">
-              <h1>
-                <ion-icon name="camera" color="tertiary" (click)="takePicture()"></ion-icon>
-              </h1>
-              {{user.email}}
-            </ion-col>
-            <ion-col></ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-    </section>
-    <section>
-      <ion-grid class="ion-no-padding">
-        <div class="details">
-          <div class="heading">
-            <h1 style="width: 100%;">
-              Personal Details
-              <ion-icon name="pencil-outline" class="ion-float-right" (click)=" editProfile()"></ion-icon>
-            </h1>
-          </div>
-          <div class="personal">
-            <ion-row>
-              <ion-col size=6>First Name:</ion-col>
-              <ion-col size=6>{{user.firstName}}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size=6>Last Name:</ion-col>
-              <ion-col size=6>{{user.lastName}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="user.cellNumber">
-              <ion-col size=6>Cell Number:</ion-col>
-              <ion-col size=6>{{user.cellNumber}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="user.dob">
-              <ion-col size=6>Date of Birth:</ion-col>
-              <ion-col size=6>{{user.dob | date: "d MMM yyyy"}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="user.idNumber">
-              <ion-col size=6>ID Number:</ion-col>
-              <ion-col size=6>{{user.idNumber}}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size=6>Email Address:</ion-col>
-              <ion-col size=6>{{user.email}}</ion-col>
-            </ion-row>
-          </div>
-          <div *ngIf="user.address">
-            <div class="heading">
-              <h1>
-                Address
-                <ion-icon name="chevron-down-outline" class="ion-float-right" *ngIf="!addr" (click)="open('addr')">
-                </ion-icon>
-                <ion-icon name="chevron-up-outline" class="ion-float-right" *ngIf="addr" (click)="open('addr')">
-                </ion-icon>
-              </h1>
-            </div>
-            <div class="address" *ngIf="addr">
-              <ion-row>
-                <ion-col size=6>{{user.addressLn1}}</ion-col>
-              </ion-row>
-              <ion-row *ngFor="let a of user.address">
-                <ion-col size=6>{{a}}</ion-col>
-              </ion-row>
-            </div>
-          </div>
-          <div *ngIf="user.guardian">
-            <div class="heading">
-              <h1>
-                Gardian Details
-                <ion-icon name="chevron-down-outline" class="ion-float-right" *ngIf="!gaurd" (click)="open('gaurd')">
-                </ion-icon>
-                <ion-icon name="chevron-up-outline" class="ion-float-right" *ngIf="gaurd" (click)="open('gaurd')">
-                </ion-icon>
-              </h1>
-            </div>
-            <div class="gardian" *ngIf="gaurd">
-              <ion-row>
-                <ion-col size=6>Name</ion-col>
-                <ion-col size=6>Name</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size=6>Name</ion-col>
-                <ion-col size=6>Name</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size=6>Name</ion-col>
-                <ion-col size=6>Name</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size=6>Name</ion-col>
-                <ion-col size=6>Name</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size=6>Name</ion-col>
-                <ion-col size=6>Name</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size=6>Name</ion-col>
-                <ion-col size=6>Name</ion-col>
-              </ion-row>
-            </div>
-          </div>
-        </div>
-      </ion-grid>
-    </section>
-  </div>
+	<div class="container ion-no-padding">
+		<section>
+			<div class="img ion-padding">
+				<ion-grid>
+					<ion-row>
+						<ion-col></ion-col>
+						<ion-col>
+							<img *ngIf="!user.profilePicUrl"
+								src="https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+							<img *ngIf="user.profilePicUrl" [src]="user.profilePicUrl">
+							<h1>
+								<ion-icon name="camera" color="tertiary" (click)="takePicture()"></ion-icon>
+							</h1>
+							{{user.email}}
+						</ion-col>
+						<ion-col></ion-col>
+					</ion-row>
+				</ion-grid>
+			</div>
+		</section>
+		<section>
+			<ion-grid class="ion-no-padding">
+				<div class="details">
+					<div class="heading">
+						<h1 style="width: 100%;">
+							Personal Details
+							<ion-icon name="pencil-outline" class="ion-float-right" (click)=" editProfile()"></ion-icon>
+						</h1>
+					</div>
+					<div class="personal">
+						<ion-row>
+							<ion-col size=1>
+								<ion-icon name="person-outline"></ion-icon>
+							</ion-col>
+							<ion-col size=11>{{user.firstName}} {{user.lastName}}</ion-col>
+						</ion-row>
+						<ion-row *ngIf="user.cellNumber">
+							<ion-col size=1>
+								<ion-icon name="call-outline"></ion-icon>
+							</ion-col>
+							<ion-col size=11>{{user.cellNumber}}</ion-col>
+						</ion-row>
+						<ion-row *ngIf="user.dob">
+							<ion-col size=1>
+								<ion-icon name="calendar-outline"></ion-icon>
+							</ion-col>
+							<ion-col size=11>{{user.dob | date: "d MMM yyyy"}}</ion-col>
+						</ion-row>
+						<ion-row *ngIf="user.idNumber">
+							<ion-col size=1>
+								<ion-icon name="card-outline"></ion-icon>
+							</ion-col>
+							<ion-col size=11>{{user.idNumber}}</ion-col>
+						</ion-row>
+						<ion-row>
+							<ion-col size=1>
+								<ion-icon name="mail-outline"></ion-icon>
+							</ion-col>
+							<ion-col size=11>{{user.email}}</ion-col>
+						</ion-row>
+						<ion-row *ngIf="user.address">
+							<ion-col size=1>
+								<ion-icon name="location-outline"></ion-icon>
+							</ion-col>
+							<ion-col size=10>
+								{{user.addressLn1}}<span *ngFor="let a of user.address">, {{a}}</span>
+							</ion-col>
+							<ion-col size=1 style="float: right;" (click)="showAddress(user.addressLn1, user.address)">
+								<ion-icon name="alert-circle-outline"></ion-icon>
+							</ion-col>
+						</ion-row>
+					</div>
+					<div *ngIf="user.guardian">
+						<div class="heading">
+							<h1>
+								Gardian Details
+								<ion-icon name="chevron-down-outline" class="ion-float-right" *ngIf="!gaurd"
+									(click)="open('gaurd')">
+								</ion-icon>
+								<ion-icon name="chevron-up-outline" class="ion-float-right" *ngIf="gaurd"
+									(click)="open('gaurd')">
+								</ion-icon>
+							</h1>
+						</div>
+						<div class="gardian" *ngIf="gaurd">
+							<ion-row>
+								<ion-col size=6>Name</ion-col>
+								<ion-col size=6>Name</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col size=6>Name</ion-col>
+								<ion-col size=6>Name</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col size=6>Name</ion-col>
+								<ion-col size=6>Name</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col size=6>Name</ion-col>
+								<ion-col size=6>Name</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col size=6>Name</ion-col>
+								<ion-col size=6>Name</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col size=6>Name</ion-col>
+								<ion-col size=6>Name</ion-col>
+							</ion-row>
+						</div>
+					</div>
+				</div>
+			</ion-grid>
+		</section>
+	</div>
 </ion-content>

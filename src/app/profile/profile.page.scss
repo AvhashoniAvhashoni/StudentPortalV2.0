@@ -1,56 +1,63 @@
 ion-content {
-    // --background: #E3E3E3;
+	// --background: #E3E3E3;
 
-    .container {
-        padding         : 0;
-        background-color: #fff;
+	.container {
+		padding         : 0;
+		background-color: #fff;
 
-        .img {
-            text-align: center;
+		.img {
+			text-align: center;
 
-            img {
-                width        : 150px;
-                height       : 150px;
-                border-radius: 50%;
-            }
+			img {
+				width        : 150px;
+				height       : 150px;
+				border-radius: 50%;
+			}
 
-            ion-skeleton-text {
-                margin-left  : 20px;
-                width        : 150px;
-                height       : 150px;
-                border-radius: 50%;
-            }
+			ion-skeleton-text {
+				margin-left  : 20px;
+				width        : 150px;
+				height       : 150px;
+				border-radius: 50%;
+			}
 
-            h1 {
-                margin-left  : 150px;
-                margin-top   : -95px;
-                margin-bottom: 60px;
-            }
-        }
+			h1 {
+				margin-left  : 150px;
+				margin-top   : -95px;
+				margin-bottom: 60px;
+			}
+		}
 
-        ion-grid {
-            .details {
-                width: 100%;
+		ion-grid {
+			.details {
+				width: 100%;
 
-                .heading {
-                    background-color: #800020;
-                    padding         : 10px;
-                    border-bottom   : #707070 1px solid;
+				.heading {
+					background-color: #800020;
+					padding         : 10px;
+					border-bottom   : #707070 1px solid;
 
-                    h1 {
-                        font-size: 20px;
-                        color    : #fff;
-                        margin   : 0;
-                    }
-                }
+					h1 {
+						font-size: 20px;
+						color    : #fff;
+						margin   : 0;
+					}
+				}
 
-                .personal,
-                .gardian,
-                .address {
-                    font-size: 18px;
-                    padding  : 10px 12px;
-                }
-            }
-        }
-    }
+				.personal,
+				.gardian {
+					ion-col {
+						overflow          : hidden;
+						text-overflow     : ellipsis;
+						display           : -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 1;
+					}
+
+					font-size: 16px;
+					padding  : 10px 12px;
+				}
+			}
+		}
+	}
 }
