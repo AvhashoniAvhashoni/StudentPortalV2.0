@@ -63,9 +63,19 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-		<ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full" [disabled]="!applyBtn"
-			(click)="apply()">
+		<ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full"
+			*ngIf="applyBtn && !pending" (click)="apply()">
 			Apply Now
+		</ion-button>
+
+		<ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full"
+			*ngIf="!applyBtn && !pending" [disabled]="!applyBtn" (click)="apply()">
+			Applications closed on {{course.closingDate | date: "d MMM yyyy"}}
+		</ion-button>
+
+		<ion-button class="ion-margin-bottom ion-text-capitalize" color="tertiary" expand="full" *ngIf="pending"
+			[disabled]="!applyBtn" (click)="apply()">
+			Status pending
 		</ion-button>
 	</div>
 </ion-content>

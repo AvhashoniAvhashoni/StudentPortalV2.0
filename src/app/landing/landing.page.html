@@ -7,7 +7,8 @@
 </ion-header>
 
 <ion-content *ngIf="!loader">
-	<div class="appliedCourse" id="top" *ngFor="let c of registeredCoures">
+	<div id="top"></div>
+	<div class="appliedCourse" *ngFor="let c of registeredCoures">
 		<img [src]="c.coverUrl">
 		<ion-text>
 			<p class="ion-no-margin">You have enrolled for:</p>
@@ -21,8 +22,8 @@
 		<ion-grid class="ion-no-padding">
 			<ion-row>
 				<ion-col class="ion-no-padding" size="6" size-md="4" size-lg="3" size-lg="2" *ngFor="let c of courses">
-					<ion-card class="ion-no-margin">
-						<img [src]="c.coverUrl" (click)="viewCourse(c)">
+					<ion-card class="ion-no-margin" (click)="viewCourse(c)">
+						<img [src]="c.coverUrl">
 						<ion-card-content>
 							<ion-text>
 								<h1>{{c.name}}</h1>
@@ -40,17 +41,18 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-		<div class="ion-text-center">
-			<ion-button color="tertiary" class="ion-text-capitalize ion-margin-bottom" fill="outline" size="small"
-				(click)="scroll()">
-				Scroll to Top
-			</ion-button>
-		</div>
+	</div>
+
+	<div class="ion-text-center">
+		<ion-button color="tertiary" class="ion-text-capitalize ion-margin-bottom" fill="outline" size="small"
+			(click)="scroll()">
+			Scroll to Top
+		</ion-button>
 	</div>
 </ion-content>
 
 <ion-content *ngIf="loader">
-	<div class="appliedCourse" id="top">
+	<div class="appliedCourse">
 		<ion-skeleton-text class="img" style="width: 150px; height: 100px;" animated></ion-skeleton-text>
 		<ion-text>
 			<p class="ion-no-margin">
@@ -91,11 +93,5 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-		<div class="ion-text-center">
-			<ion-button color="tertiary" class="ion-text-capitalize ion-margin-bottom" fill="outline" size="small"
-				(click)="scroll()">
-				Scroll to Top
-			</ion-button>
-		</div>
 	</div>
 </ion-content>

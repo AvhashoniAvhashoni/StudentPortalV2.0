@@ -15,6 +15,7 @@ export class CoursePage implements OnInit {
     public course: Course;
     public user: User;
     public applyBtn: boolean = true;
+	public pending: boolean = false;
     public newStudentCourse: boolean = false;
     public totalEnrolled: number = 0;
     public duration: number = 0;
@@ -43,8 +44,9 @@ export class CoursePage implements OnInit {
                 if (!this.newStudentCourse) {
                     for (let sc of studentCourse) {
                         if (sc.courseID == this.course.id) {
-                            this.presentToast(`You've already applied for: ${this.course.name}!`);
+                            // this.presentToast(`You've already applied for: ${this.course.name}!`);
                             this.applyBtn = false;
+							this.pending=true;
                             break;
                         }
                     }
