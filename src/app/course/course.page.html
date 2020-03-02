@@ -36,7 +36,7 @@
 			</ion-text>
 		</div>
 	</div>
-	<div class="video">
+	<div class="video" *ngIf="course.coverVideoUrl">
 		<video controls height="300px" width="80%" controlsList="nodownload">
 			<source [src]="course.coverVideoUrl" type="video/mp4">
 			Video is not supported.

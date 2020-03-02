@@ -113,7 +113,7 @@ export class EnrolledcoursesPage implements OnInit {
 
     register(course: Course) {
         this._service.setLocal("enrollCourse", course);
-        this._router.navigateByUrl("/payment");
+        this._router.navigateByUrl("/registration");
     }
 
     async presentToast(message: string) {

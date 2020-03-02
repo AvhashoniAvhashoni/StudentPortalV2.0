@@ -9,33 +9,27 @@
 		<div *ngIf="!loader">
 			<h1 class="ion-margin-top">Courses</h1>
 			<div *ngIf="isAcceptedCourse">
-				<h5>Accepted course</h5>
+				<h5>Status: Pending Registration</h5>
 				<div class="appliedCourse" id="top" *ngFor="let c of acceptedCourse">
 					<img [src]="c.coverUrl">
 					<ion-text>
 						<h1>{{c.name}}</h1>
 						<p class="ion-no-margin" style="margin: 0;">{{c.code}}</p>
 						<p>
-							{{c.description}}
-						</p>
-						<p>
+							<ion-button size="small" color="tertiary" style="font-size: 10px;" (click)="register(c)">
+								Register
+							</ion-button>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star checked"></span>
 							<span class="fa fa-star"></span>
 							<span class="fa fa-star"></span>
 						</p>
-						<!-- <span class="ion-float-right"> -->
-						<ion-button size="small" color="tertiary" style="font-size: 8px; margin-left: 80%;"
-							(click)="register(c)">
-							Register
-						</ion-button>
-						<!-- </span> -->
 					</ion-text>
 				</div>
 			</div>
 			<div *ngIf="isRegisteredcourse">
-				<h5>Registered course</h5>
+				<h5>Status: Registered</h5>
 				<div class="appliedCourse" id="top" *ngFor="let c of registeredcourse">
 					<img [src]="c.coverUrl">
 					<ion-text>
@@ -56,7 +50,7 @@
 				</div>
 			</div>
 			<div *ngIf="isUnacceptedCourse">
-				<h5>Pending course</h5>
+				<h5>Status: Pending</h5>
 				<div class="appliedCourse" id="top" *ngFor="let c of unacceptedCourse">
 					<img [src]="c.coverUrl">
 					<ion-text>
@@ -76,7 +70,7 @@
 				</div>
 			</div>
 			<div *ngIf="isCompletedCourse">
-				<h5>Completed Course</h5>
+				<h5>Status: Completed</h5>
 				<div class="appliedCourse" id="top" *ngFor="let c of completedCourse">
 					<img [src]="c.coverUrl">
 					<ion-text>

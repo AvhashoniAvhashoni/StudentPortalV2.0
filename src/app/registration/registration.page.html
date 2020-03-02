@@ -1,220 +1,253 @@
 <ion-header>
-  <ion-toolbar color="tertiary" class="ion-text-uppercase">
-    <ion-buttons slot="start">
-    </ion-buttons>
-    <ion-title>Registration</ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="tertiary" class="ion-text-uppercase">
+		<ion-buttons slot="start">
+		</ion-buttons>
+		<ion-title>Registration</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="container">
-    <h5 class="ion-no-margin ion-padding-top">Registration for: </h5>
-    <form [formGroup]="user" (submit)="registration()">
-      <ul>
-        <li>
-          <span class="circle" style="background: #800030" (click)="changeIndex(1, 'prev')">1</span>
-          <span class="label">Personal Details</span>
-          <div class="line" *ngIf="index != 1"></div>
-          <ion-list class="ion-no-padding" *ngIf="index == 1">
-            <ion-item>
-              <ion-label>First Name:</ion-label>
-              <ion-input type="text" minlength="3" maxlength="30" formControlName="name" required></ion-input>
-            </ion-item>
-            <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.name">
-                <div class="error-message"
-                  *ngIf="user.get('name').hasError(validation.type) && user.get('name').touched">
-                  <p class="error">{{ validation.message }}</p>
-                </div>
-              </ng-container>
-            </div>
-            <ion-item>
-              <ion-label>Last Name:</ion-label>
-              <ion-input type="text" minlength="3" maxlength="30" formControlName="surname" required>
-              </ion-input>
-            </ion-item>
-            <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.surname">
-                <div class="error-message"
-                  *ngIf="user.get('surname').hasError(validation.type) && user.get('surname').touched">
-                  <p class="error">{{ validation.message }}</p>
-                </div>
-              </ng-container>
-            </div>
-            <ion-item>
-              <ion-label id="labels" stacked>Cell number:</ion-label>
-              <ion-input type="tel" minlength="10" maxlength="10" formControlName="cell" required></ion-input>
-            </ion-item>
-            <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.cell">
-                <div class="error-message"
-                  *ngIf="user.get('cell').hasError(validation.type) && user.get('cell').touched">
-                  <p class="error">{{ validation.message }}</p>
-                </div>
-              </ng-container>
-            </div>
-            <ion-item *ngIf="!id">
-              <ion-label id="labels" stacked>ID Number:</ion-label>
-              <ion-input color="white" type="tel" minlength="13" maxlength="13" formControlName="idNr" required>
-              </ion-input>
-            </ion-item>
-            <div class="validation-errors">
-              <p>{{idnumErr}}</p>
-            </div>
-            <ion-item *ngIf="!id">
-              <ion-label id="labels" stacked>Date of Birth:</ion-label>
-              <ion-datetime type="Date" displayFormat="DD/MM/YYYY" [min]="minYear" [max]="maxYear" formControlName="dob"
-                required>
-              </ion-datetime>
-            </ion-item>
-            <div class="validation-errors">
-              <p>{{dobErr}}</p>
-            </div>
-            <ion-item>
-              <ion-label id="labels" stacked>Disability:</ion-label>
-              <ion-toggle color="tertiary" (ionChange)="toggle($event)" [checked]="isDisable">
-              </ion-toggle>
-            </ion-item>
-            <div class="validation-errors">
-            </div>
-            <span *ngIf="isDisable">
-              <ion-label id="labels" stacked class="ion-padding-start">Please specify disability:</ion-label>
-              <ion-item>
-                <ion-input color="white" type="text" formControlName="disability" minlength="3" maxlength="100"
-                  [value]="currentUser.disability" required></ion-input>
-              </ion-item>
-              <div class="validation-errors">
-                {{disabilityErr}}
-              </div>
-            </span>
-            <ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right"
-              (click)="changeIndex(2, 'next')">
-              Continue
-            </ion-button>
-          </ion-list>
-        </li>
-        <li>
-          <span class="circle" *ngIf="index != 1" style="background: #800030" (click)="changeIndex(2, 'prev')">2</span>
-          <span class="circle" *ngIf="index != 2 && index != 3 && index != 4">2</span>
-          <span class="label">Address</span>
-          <div class="line" *ngIf="index != 2"></div>
-          <ion-list class="ion-no-padding" *ngIf="index == 2">
-            <ion-list style="padding-top: 0;">
-              <ion-item>
-                <ion-label id="labels" stacked>Address Line 1:</ion-label>
-                <ion-input color="white" type="text" formControlName="addressLn1" minlength="3" maxlength="100"
-                  required>
-                </ion-input>
-              </ion-item>
-              <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.addressLn1">
-                  <div class="error-message"
-                    *ngIf="user.get('addressLn1').hasError(validation.type) && user.get('addressLn1').touched">
-                    <p class="error">{{ validation.message }}</p>
-                  </div>
-                </ng-container>
-              </div>
-            </ion-list>
-            <div style="position: relative">
-              <ion-searchbar debounce=500 (ionInput)="search($event)" [value]="selectedAddress"
-                placeholder="Search Street Address"></ion-searchbar>
-              <div style="position: absolute; width: 100%; z-index: 999;">
-                <ion-list lines="none" *ngIf="addresses.length > 0">
-                  <ion-item button *ngFor="let address of addresses" (click)="onSelect(address)">
-                    <ion-icon name="pin"></ion-icon>
-                    {{ address }}
-                  </ion-item>
-                </ion-list>
-              </div>
-            </div>
-            <div class="validation-errors ion-padding-start">
-              {{addressErr}}
-            </div>
-            <div style="height: 200px;" *ngIf="searchHeight"></div>
-            <ion-list style="padding-top: 0;">
-              <ion-item *ngFor="let a of address">
-                {{ a }}
-              </ion-item>
-            </ion-list>
-            <ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right"
-              (click)="changeIndex(3, 'next')">
-              Continue
-            </ion-button>
-            <ion-button color="tertiary" fill="outline" class="ion-text-capitalize ion-margin-top"
-              (click)="changeIndex(1, 'prev')">
-              Back
-            </ion-button>
-          </ion-list>
-        </li>
-        <li>
-          <span class="circle" *ngIf="index == 3 || index == 4" style="background: #800030"
-            (click)="changeIndex(3, 'prev')">3</span>
-          <span class="circle" *ngIf="index != 3 && index != 4">3</span>
-          <span class="label">Gardian Details</span>
-          <div class="line" *ngIf="index != 3"></div>
-          <ion-list class="ion-no-padding" *ngIf="index == 3">
-            <ion-list>
-              <ion-item>
-                <ion-label id="labels" stacked>Names:</ion-label>
-                <ion-input color="white" type="text" formControlName="gName" minlength="3" maxlength="30" required>
-                </ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label id="labels" stacked>Last Name:</ion-label>
-                <ion-input color="white" type="text" formControlName="gSurname" minlength="3" maxlength="30" required>
-                </ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label id="labels" stacked>Cell Number:</ion-label>
-                <ion-input color="white" type="tel" formControlName="gCell" minlength="10" maxlength="10" required>
-                </ion-input>
-              </ion-item>
-            </ion-list>
-            <ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right"
-              (click)="changeIndex(4, 'next')">
-              Continue
-            </ion-button>
-            <ion-button color="tertiary" fill="outline" class="ion-text-capitalize ion-margin-top"
-              (click)="changeIndex(2, 'prev')">
-              Back
-            </ion-button>
-          </ion-list>
-        </li>
-        <li>
-
-          <span class="circle" *ngIf="index == 4" style="background: #800030" (click)="changeIndex(4, 'prev')">4</span>
-          <span class="circle" *ngIf="index != 4">4</span>
-          <span class="label">Payment Method</span>
-          <ion-list class="ion-no-padding" *ngIf="index == 4">
-            <ion-radio-group formControlName="payMethod">
-              <ion-item>
-                <ion-label>Full Payment</ion-label>
-                <ion-radio color="tertiary" slot="start" value="full"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>Monthly Installment</ion-label>
-                <ion-radio color="tertiary" slot="start" value="monthly">
-                </ion-radio>
-              </ion-item>
-            </ion-radio-group>
-            <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.payMethod">
-                <div class="error-message"
-                  *ngIf="user.get('payMethod').hasError(validation.type) && user.get('payMethod').touched">
-                  <p class="error">{{ validation.message }}</p>
-                </div>
-              </ng-container>
-            </div>
-            <ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right" type="submit">
-              Submit
-            </ion-button>
-            <ion-button color="tertiary" fill="outline" class="ion-text-capitalize ion-margin-top"
-              (click)="changeIndex(3, 'prev')">
-              Back
-            </ion-button>
-          </ion-list>
-        </li>
-      </ul>
-    </form>
-  </div>
+	<div class="container">
+		<h5 class="ion-no-margin ion-padding-top">Registration for: </h5>
+		<form [formGroup]="user" (submit)="registration()">
+			<ul>
+				<li>
+					<span class="circle" style="background: #800030" (click)="changeIndex(1, 'prev')">1</span>
+					<span class="label">Personal Details</span>
+					<div class="line" *ngIf="index != 1"></div>
+					<ion-list class="ion-no-padding" *ngIf="index == 1">
+						<ion-item>
+							<ion-label>First Name:</ion-label>
+							<ion-input type="text" minlength="3" maxlength="30" formControlName="name" required>
+							</ion-input>
+						</ion-item>
+						<div class="validation-errors">
+							<ng-container *ngFor="let validation of validation_messages.name">
+								<div class="error-message"
+									*ngIf="user.get('name').hasError(validation.type) && user.get('name').touched">
+									<p class="error">{{ validation.message }}</p>
+								</div>
+							</ng-container>
+						</div>
+						<ion-item>
+							<ion-label>Last Name:</ion-label>
+							<ion-input type="text" minlength="3" maxlength="30" formControlName="surname" required>
+							</ion-input>
+						</ion-item>
+						<div class="validation-errors">
+							<ng-container *ngFor="let validation of validation_messages.surname">
+								<div class="error-message"
+									*ngIf="user.get('surname').hasError(validation.type) && user.get('surname').touched">
+									<p class="error">{{ validation.message }}</p>
+								</div>
+							</ng-container>
+						</div>
+						<ion-item>
+							<ion-label id="labels" stacked>Cell number:</ion-label>
+							<ion-input type="tel" minlength="10" maxlength="10" formControlName="cell" required>
+							</ion-input>
+						</ion-item>
+						<div class="validation-errors">
+							<ng-container *ngFor="let validation of validation_messages.cell">
+								<div class="error-message"
+									*ngIf="user.get('cell').hasError(validation.type) && user.get('cell').touched">
+									<p class="error">{{ validation.message }}</p>
+								</div>
+							</ng-container>
+						</div>
+						<ion-item *ngIf="!id">
+							<ion-label id="labels" stacked>ID Number:</ion-label>
+							<ion-input color="white" type="tel" minlength="13" maxlength="13" formControlName="idNr"
+								required>
+							</ion-input>
+						</ion-item>
+						<div class="validation-errors">
+							<p>{{idnumErr}}</p>
+						</div>
+						<ion-item *ngIf="!id">
+							<ion-label id="labels" stacked>Date of Birth:</ion-label>
+							<ion-datetime type="Date" displayFormat="DD/MM/YYYY" [min]="minYear" [max]="maxYear"
+								formControlName="dob" required>
+							</ion-datetime>
+						</ion-item>
+						<div class="validation-errors">
+							<p>{{dobErr}}</p>
+						</div>
+						<ion-item>
+							<ion-label id="labels" stacked>Disability:</ion-label>
+							<ion-toggle color="tertiary" (ionChange)="toggle($event)" [checked]="isDisable">
+							</ion-toggle>
+						</ion-item>
+						<div class="validation-errors">
+						</div>
+						<span *ngIf="isDisable">
+							<ion-label id="labels" stacked class="ion-padding-start">Please specify disability:
+							</ion-label>
+							<ion-item>
+								<ion-input color="white" type="text" formControlName="disability" minlength="3"
+									maxlength="100" [value]="currentUser.disability" required></ion-input>
+							</ion-item>
+							<div class="validation-errors">
+								{{disabilityErr}}
+							</div>
+						</span>
+						<ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right"
+							(click)="changeIndex(2, 'next')">
+							Continue
+						</ion-button>
+					</ion-list>
+				</li>
+				<li>
+					<span class="circle" *ngIf="index != 1" style="background: #800030"
+						(click)="changeIndex(2, 'prev')">2</span>
+					<span class="circle" *ngIf="index != 2 && index != 3 && index != 4">2</span>
+					<span class="label">Address</span>
+					<div class="line" *ngIf="index != 2"></div>
+					<ion-list class="ion-no-padding" *ngIf="index == 2">
+						<ion-list style="padding-top: 0;">
+							<ion-item>
+								<ion-label id="labels" stacked>Address Line 1:</ion-label>
+								<ion-input color="white" type="text" formControlName="addressLn1" minlength="3"
+									maxlength="100" required>
+								</ion-input>
+							</ion-item>
+							<div class="validation-errors">
+								<ng-container *ngFor="let validation of validation_messages.addressLn1">
+									<div class="error-message"
+										*ngIf="user.get('addressLn1').hasError(validation.type) && user.get('addressLn1').touched">
+										<p class="error">{{ validation.message }}</p>
+									</div>
+								</ng-container>
+							</div>
+						</ion-list>
+						<div style="position: relative">
+							<ion-searchbar debounce=500 (ionInput)="search($event)" [value]="selectedAddress"
+								placeholder="Search Street Address"></ion-searchbar>
+							<div style="position: absolute; width: 100%; z-index: 999;">
+								<ion-list lines="none" *ngIf="addresses.length > 0">
+									<ion-item button *ngFor="let address of addresses" (click)="onSelect(address)">
+										<ion-icon name="pin"></ion-icon>
+										{{ address }}
+									</ion-item>
+								</ion-list>
+							</div>
+						</div>
+						<div class="validation-errors ion-padding-start">
+							{{addressErr}}
+						</div>
+						<div style="height: 200px;" *ngIf="searchHeight"></div>
+						<ion-list style="padding-top: 0;">
+							<ion-item *ngFor="let a of address">
+								{{ a }}
+							</ion-item>
+						</ion-list>
+						<ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right"
+							(click)="changeIndex(3, 'next')">
+							Continue
+						</ion-button>
+						<ion-button color="tertiary" fill="outline" class="ion-text-capitalize ion-margin-top"
+							(click)="changeIndex(1, 'prev')">
+							Back
+						</ion-button>
+					</ion-list>
+				</li>
+				<li>
+					<span class="circle" *ngIf="index == 3 || index == 4" style="background: #800030"
+						(click)="changeIndex(3, 'prev')">3</span>
+					<span class="circle" *ngIf="index != 3 && index != 4">3</span>
+					<span class="label">Gardian Details</span>
+					<div class="line" *ngIf="index != 3"></div>
+					<ion-list class="ion-no-padding" *ngIf="index == 3">
+						<ion-list>
+							<ion-item>
+								<ion-label id="labels" stacked>Names:</ion-label>
+								<ion-input color="white" type="text" formControlName="gName" minlength="3"
+									maxlength="30" required>
+								</ion-input>
+							</ion-item>
+							<div class="validation-errors">
+								<ng-container *ngFor="let validation of validation_messages.gName">
+									<div class="error-message"
+										*ngIf="user.get('gName').hasError(validation.type) && user.get('gName').touched">
+										<p class="error">{{ validation.message }}</p>
+									</div>
+								</ng-container>
+							</div>
+							<ion-item>
+								<ion-label id="labels" stacked>Last Name:</ion-label>
+								<ion-input color="white" type="text" formControlName="gSurname" minlength="3"
+									maxlength="30" required>
+								</ion-input>
+							</ion-item>
+							<div class="validation-errors">
+								<ng-container *ngFor="let validation of validation_messages.surname">
+									<div class="error-message"
+										*ngIf="user.get('surname').hasError(validation.type) && user.get('surname').touched">
+										<p class="error">{{ validation.message }}</p>
+									</div>
+								</ng-container>
+							</div>
+							<ion-item>
+								<ion-label id="labels" stacked>Cell Number:</ion-label>
+								<ion-input color="white" type="tel" formControlName="gCell" minlength="10"
+									maxlength="10" required>
+								</ion-input>
+							</ion-item>
+							<div class="validation-errors">
+								<ng-container *ngFor="let validation of validation_messages.gCell">
+									<div class="error-message"
+										*ngIf="user.get('gCell').hasError(validation.type) && user.get('gCell').touched">
+										<p class="error">{{ validation.message }}</p>
+									</div>
+								</ng-container>
+							</div>
+						</ion-list>
+						<ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right"
+							(click)="changeIndex(4, 'next')">
+							Continue
+						</ion-button>
+						<ion-button color="tertiary" fill="outline" class="ion-text-capitalize ion-margin-top"
+							(click)="changeIndex(2, 'prev')">
+							Back
+						</ion-button>
+					</ion-list>
+				</li>
+				<li>
+					<span class="circle" *ngIf="index == 4" style="background: #800030"
+						(click)="changeIndex(4, 'prev')">4</span>
+					<span class="circle" *ngIf="index != 4">4</span>
+					<span class="label">Payment Method</span>
+					<ion-list class="ion-no-padding" *ngIf="index == 4">
+						<ion-radio-group formControlName="payMethod">
+							<ion-item>
+								<ion-label>Full Payment</ion-label>
+								<ion-radio color="tertiary" slot="start" value="full"></ion-radio>
+							</ion-item>
+							<ion-item>
+								<ion-label>Monthly Installment</ion-label>
+								<ion-radio color="tertiary" slot="start" value="monthly">
+								</ion-radio>
+							</ion-item>
+						</ion-radio-group>
+						<div class="validation-errors">
+							<ng-container *ngFor="let validation of validation_messages.payMethod">
+								<div class="error-message"
+									*ngIf="user.get('payMethod').hasError(validation.type) && user.get('payMethod').touched">
+									<p class="error">{{ validation.message }}</p>
+								</div>
+							</ng-container>
+						</div>
+						<ion-button color="tertiary" class="ion-text-capitalize ion-margin-top ion-float-right"
+							type="submit">
+							Submit
+						</ion-button>
+						<ion-button color="tertiary" fill="outline" class="ion-text-capitalize ion-margin-top"
+							(click)="changeIndex(3, 'prev')">
+							Back
+						</ion-button>
+					</ion-list>
+				</li>
+			</ul>
+		</form>
+	</div>
 </ion-content>
