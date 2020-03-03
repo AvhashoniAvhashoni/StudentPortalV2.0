@@ -13,6 +13,7 @@ export class PaymentPage implements OnInit {
     public user: User;
     public proofOfPayUrl: string = null;
     public courseCode: any = null;
+    public popName: string = null;
     constructor(private _service: AppService, private _router: Router, private _loadingController: LoadingController, private _toastController: ToastController) { }
 
     ngOnInit() {
@@ -29,6 +30,7 @@ export class PaymentPage implements OnInit {
 
     uploadProofOfPay(event) {
         let pop = <File> event.target.files[0];
+        this.popName = pop.name;
         this.presentLoadingWithOptions();
         this._service.upload("proofOfPay/", this.user.id + "/" + new Date().toString(), pop).then(res => {
             res.ref.getDownloadURL().then(url => {

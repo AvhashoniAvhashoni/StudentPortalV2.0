@@ -1,26 +1,38 @@
 ion-content {
-    .container {
-        ion-grid {
-            ion-row {
-                ion-col {
-                    p {
-                        margin: 0;
-                    }
+	.container {
+		ion-grid {
+			ion-row {
+				ion-col {
+					p {
+						margin: 0;
+					}
 
-                    .upload {
-                        margin          : 10px 0;
-                        height          : 25vh;
-                        border          : 1px solid #c2c2c2;
-                        background-color: #f7f7f7;
-                        text-align      : center;
+					.upload {
+						margin          : 10px 0;
+						height          : 25vh;
+						border          : 1px solid #c2c2c2;
+						background-color: #f7f7f7;
+						text-align      : center;
 
-                        ion-icon {
-                            font-size  : 40px;
-                            padding-top: 10vh;
-                        }
-                    }
-                }
-            }
-        }
-    }
+						ion-icon {
+							font-size  : 40px;
+							padding-top: 10vh;
+						}
+
+						p {
+							font-size         : 15px;
+							text-align        : center;
+							width             : 90%;
+							font-weight       : 600;
+							overflow          : hidden;
+							text-overflow     : ellipsis;
+							display           : -webkit-box;
+							-webkit-box-orient: vertical;
+							-webkit-line-clamp: 1;
+						}
+					}
+				}
+			}
+		}
+	}
 }

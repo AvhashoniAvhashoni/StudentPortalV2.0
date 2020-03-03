@@ -16,8 +16,8 @@ import { EditPage } from './edit/edit.page';
 })
 export class ProfilePage implements OnInit, DoCheck {
     public user: User;
-    public gaurd: boolean = false;
-    public addr: boolean = false;
+    // public gaurd: boolean = false;
+    // public addr: boolean = false;
     constructor(private _service: AppService, private _loadingController: LoadingController, private _toastController: ToastController, private _sanitizer: DomSanitizer, private _modalController: ModalController, private _alertController: AlertController) { }
 
     ngOnInit() {
@@ -28,13 +28,13 @@ export class ProfilePage implements OnInit, DoCheck {
         this.user = this._service.getLocal("user");
     }
 
-    open(item) {
-        if (item == "gaurd")
-            this.gaurd = !this.gaurd;
+    // open(item) {
+    //     if (item == "gaurd")
+    //         this.gaurd = !this.gaurd;
 
-        if (item == "addr")
-            this.addr = !this.addr;
-    }
+    //     if (item == "addr")
+    //         this.addr = !this.addr;
+    // }
 
     public async takePicture() {
         const image = await Plugins.Camera.getPhoto({

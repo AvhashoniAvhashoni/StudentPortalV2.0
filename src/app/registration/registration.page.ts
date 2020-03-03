@@ -333,7 +333,7 @@ export class RegistrationPage implements OnInit, DoCheck {
                 this._service.setLocal("user", this.currentUser);
                 this.studentCourse.dateRegistered = new Date();
                 this._service.updateStudentCourse(this.studentCourse).then(res => {
-                    this._router.navigateByUrl("/payment");
+                    this._router.navigateByUrl("/enrolledcourses");
                     this.presentToast("Registration successful!")
                 });
             }).catch(err => {

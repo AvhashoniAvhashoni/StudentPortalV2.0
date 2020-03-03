@@ -81,41 +81,21 @@
 						</ion-row>
 					</div>
 					<div *ngIf="user.guardian">
-						<div class="heading">
-							<h1>
-								Gardian Details
-								<ion-icon name="chevron-down-outline" class="ion-float-right" *ngIf="!gaurd"
-									(click)="open('gaurd')">
-								</ion-icon>
-								<ion-icon name="chevron-up-outline" class="ion-float-right" *ngIf="gaurd"
-									(click)="open('gaurd')">
-								</ion-icon>
-							</h1>
-						</div>
-						<div class="gardian" *ngIf="gaurd">
+						<h1 class="pl-1">
+							Gardian Details
+						</h1>
+						<div class="gardian">
 							<ion-row>
-								<ion-col size=6>Name</ion-col>
-								<ion-col size=6>Name</ion-col>
+								<ion-col size=1>
+									<ion-icon name="person-outline"></ion-icon>
+								</ion-col>
+								<ion-col size=11>{{user.guardian.firstName}} {{user.guardian.lastName}}</ion-col>
 							</ion-row>
-							<ion-row>
-								<ion-col size=6>Name</ion-col>
-								<ion-col size=6>Name</ion-col>
-							</ion-row>
-							<ion-row>
-								<ion-col size=6>Name</ion-col>
-								<ion-col size=6>Name</ion-col>
-							</ion-row>
-							<ion-row>
-								<ion-col size=6>Name</ion-col>
-								<ion-col size=6>Name</ion-col>
-							</ion-row>
-							<ion-row>
-								<ion-col size=6>Name</ion-col>
-								<ion-col size=6>Name</ion-col>
-							</ion-row>
-							<ion-row>
-								<ion-col size=6>Name</ion-col>
-								<ion-col size=6>Name</ion-col>
+							<ion-row *ngIf="user.cellNumber">
+								<ion-col size=1>
+									<ion-icon name="call-outline"></ion-icon>
+								</ion-col>
+								<ion-col size=11>{{user.guardian.cellNr}}</ion-col>
 							</ion-row>
 						</div>
 					</div>
