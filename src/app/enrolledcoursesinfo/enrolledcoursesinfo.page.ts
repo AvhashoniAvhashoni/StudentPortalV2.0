@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { Course } from '../class/course';
+import { RatingPage } from './rating/rating.page';
+import {ModalController} from '@ionic/angular';
 
 @Component({
     selector: 'app-enrolledcoursesinfo',
@@ -10,12 +12,19 @@ import { Course } from '../class/course';
 export class EnrolledcoursesinfoPage implements OnInit {
     public course: Course;
     public duration: number = 0;
-    constructor(private _service: AppService) { }
+    constructor(private _service: AppService, public modalController: ModalController) { }
 
     ngOnInit() {
         this.course = this._service.getSession("enrolledCourseInfo");
+        // console.log(this.course.id)
         var timeDiff = Math.abs(new Date(this.course.endDate).getTime() - new Date(this.course.startDate).getTime());
         this.duration = Math.ceil((timeDiff / (1000 * 3600 * 24)) / 30.4167);
     }
 
+    async presentModal() {
+        const modal = await this.modalController.create({
+            component: RatingPage
+        });
+        return await modal.present();
+    }
 }

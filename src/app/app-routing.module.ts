@@ -74,7 +74,12 @@ const routes: Routes = [
   {
     path: 'enrolledcoursesinfo',
     loadChildren: () => import('./enrolledcoursesinfo/enrolledcoursesinfo.module').then( m => m.EnrolledcoursesinfoPageModule)
+  },
+  {
+    path: 'notifications',
+    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
   }
+
 ];
 
 @NgModule({

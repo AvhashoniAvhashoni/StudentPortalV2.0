@@ -28,16 +28,18 @@
 		<h5 class="ion-padding-top ion-margin-start">Latest news</h5>
 		<div class="empty"></div>
 		<ion-list lines="none">
-			<ion-item *ngFor="let i of [1,2,3,4,5,6,7,8,9]">
+			<ion-item *ngFor="let c of courseContent; let i = index">
 				<ion-thumbnail slot="start">
 					<img src="/assets/images/home/courses/1.jpg">
 				</ion-thumbnail>
-				<ion-icon name="alert-circle-outline" slot="end"></ion-icon>
+				<!-- <ion-icon name="alert-circle-outline" slot="end"></ion-icon> -->
+
+				<ion-icon name="information-circle-outline" class="ion-float-right" slot="end"></ion-icon>
 				<ion-text>
 					<h5 class="ion-no-margin">
-						Hello World
+						{{c.title}}
 					</h5>
-					Date: 07/02/2020
+					Date: {{c.date | date: "dd/MM/yyyy"}}
 				</ion-text>
 			</ion-item>
 		</ion-list>

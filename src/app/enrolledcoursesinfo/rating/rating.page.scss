@@ -1,0 +1,36 @@
+ion-content {
+	.container {
+		text-align: center;
+
+		img {
+			margin-bottom: 5vh;
+			height       : 20vh;
+			margin-top   : 5vh;
+		}
+
+		h1 {
+			font-size: 30px;
+			margin   : 0;
+			padding  : 0;
+			color    : #333;
+		}
+
+		p {
+			color    : #555;
+			font-size: 15px;
+		}
+
+		.code {
+			margin-bottom: 8px;
+			margin-top   : 8px;
+		}
+
+		.rating {
+			font-size: 20px;
+		}
+
+		.fa:hover {
+			color: orange;
+		}
+	}
+}

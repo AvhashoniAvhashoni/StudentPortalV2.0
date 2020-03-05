@@ -16,4 +16,5 @@ export class Course {
     public contents: any;
     public coverVideoUrl: string;
     public rating: any;
+    public news: any;
 }

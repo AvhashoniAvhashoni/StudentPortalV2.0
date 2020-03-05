@@ -46,6 +46,11 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
             icon: 'newspaper'
         },
         {
+            title: 'Notification',
+            url: '/notifications',
+            icon: 'notifications'
+        },
+        {
             title: 'Log Out',
             url: '/logout',
             icon: 'log-out'

@@ -1,0 +1,30 @@
+<ion-header>
+	<ion-toolbar color="tertiary">
+		<ion-menu-button slot="start"></ion-menu-button>
+		<ion-title class="ion-text-uppercase">Notifications</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-list>
+		<ion-item-sliding id="item100"  *ngFor="let n of [1,2,3,4,5,6,7,8,9,0]">
+			<ion-item>
+				<ion-label>
+					<ion-note slot="end" class="float-right">
+						<strong style="color: #333; font-size: 12px;">10:45 AM</strong>
+					</ion-note>
+					<h2><strong style="color: #333;">HubStruck</strong></h2>
+					<p>A new message in your network fdfgf dfjkdf dsfgj</p>
+				</ion-label>
+				<ion-img slot="start" class="imageSize" src=".\assets\images\cropped-Deepeg-95x95.png"></ion-img>
+			</ion-item>
+			<ion-item-options side="end">
+				<ion-item-option color="danger">
+					<ion-icon slot="icon-only" name="trash"></ion-icon>
+				</ion-item-option>
+				<ion-item-option>
+					<ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon>
+				</ion-item-option>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>

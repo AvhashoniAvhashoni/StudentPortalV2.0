@@ -35,7 +35,6 @@ export class NewsPage implements OnInit {
     }
 
     courseContents() {
-        this.courseContent = [];
         this.user = this._service.getLocal("user");
         this._service.readStudentCourse(this.user.id).subscribe(res => {
             if (res.length == 0) {
@@ -50,17 +49,16 @@ export class NewsPage implements OnInit {
                 for (let i = 0; i < userCourse.length; i++) {
                     if (userCourse[i].status && userCourse[i].dateRegistered && !userCourse[i].courseComplete) {
                         this._service.readCourse(userCourse[i].courseID).subscribe(courseRes => {
+                            this.courseContent = [];
                             this.loader = false;
                             let course: any = courseRes;
                             this.isCourse = true;
                             this.courseName = course.name;
-                            if (course.contents) {
+                            if (course.news) {
                                 this.content = true;
-                                for (let c of course.contents) {
-                                    if (c.format == "news") {
-                                        this.courseContent.push(c);
-                                        this.courseContent.sort((a, b) => (a.uploadDate < b.uploadDate) ? 1 : ((b.uploadDate < a.uploadDate) ? -1 : 0));
-                                    }
+                                for (let c of course.news) {
+                                    this.courseContent.push(c);
+                                    this.courseContent.sort((a, b) => (a.uploadDate < b.uploadDate) ? 1 : ((b.uploadDate < a.uploadDate) ? -1 : 0));
                                 }
                             } else {
                                 this.presentAlert("No course content has been uploaded!");

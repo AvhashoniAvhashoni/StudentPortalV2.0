@@ -24,7 +24,6 @@ export class LandingPage implements OnInit {
 
     enrolledCourse() {
         this._service.readStudentCourse(this.user.id).subscribe(rez => {
-            this.registeredCoures = [];
             if (rez.length > 0) {
                 let studentCourse: any = rez.map(sc => {
                     return {
@@ -35,7 +34,11 @@ export class LandingPage implements OnInit {
                 for (let sc of studentCourse) {
                     if (sc.status && sc.dateRegistered && !sc.courseComplete)
                         this._service.readCourse(sc.courseID).subscribe(res => {
-                            this.registeredCoures.push(res);
+                            let course: any = res;
+                            course.id = sc.courseID;
+                            this.registeredCoures = [];
+                            this.registeredCoures.push(course);
+
                         }, err => {
                             console.log(err);
                         });

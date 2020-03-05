@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: EnrolledcoursesinfoPage
+  },  {
+    path: 'rating',
+    loadChildren: () => import('./rating/rating.module').then( m => m.RatingPageModule)
   }
+
 ];
 
 @NgModule({
