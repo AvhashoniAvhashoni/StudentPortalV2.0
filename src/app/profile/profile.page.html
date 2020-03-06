@@ -15,8 +15,7 @@
 					<ion-row>
 						<ion-col></ion-col>
 						<ion-col>
-							<img *ngIf="!user.profilePicUrl"
-								src="https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+							<img *ngIf="!user.profilePicUrl" src="/assets/images/profile.png">
 							<img *ngIf="user.profilePicUrl" [src]="user.profilePicUrl">
 							<h1>
 								<ion-icon name="camera" color="tertiary" (click)="takePicture()"></ion-icon>

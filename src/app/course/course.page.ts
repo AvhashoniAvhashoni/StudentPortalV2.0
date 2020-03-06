@@ -20,12 +20,24 @@ export class CoursePage implements OnInit {
     public newStudentCourse: boolean = false;
     public totalEnrolled: number = 0;
     public duration: number = 0;
+    public rating: number = 0;
     constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public _alertController: AlertController) { }
 
     ngOnInit() {
         this.user = this._service.getLocal("user");
         this.course = this._service.getSession("course");
-
+        this._service.getRatings(this.course.id).subscribe(res => {
+            this.rating = 0;
+            let rating: any = res;
+            if (rating.length > 0) {
+                for (let r of rating) {
+                    this.rating += r.rating;
+                }
+                setTimeout(() => {
+                    this.rating /= res.length;
+                }, (1));
+            }
+        });
         if (new Date() >= new Date(this.course.closingDate)) {
             this.applyBtn = false;
         }

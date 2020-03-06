@@ -15,6 +15,6 @@ import { RatingPage } from './rating.page';
     IonicModule,
     RatingPageRoutingModule
   ],
-  declarations: [RatingPage]
+//   declarations: [RatingPage]
 })
 export class RatingPageModule {}

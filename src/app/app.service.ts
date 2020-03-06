@@ -106,11 +106,14 @@ export class AppService {
         return await this._firestore.collection("studentCourse").doc(userCourse.id).set(userCourse);
     }
 
-    readRatings(courseID: string) {
-        return this._firestore.collection("ratings").doc(courseID).snapshotChanges();
+    readRatings(courseID: string, userID: string) {
+        return this._firestore.collection("ratings", ref => ref.where("courseID", "==", courseID).where("userID", "==", userID)).valueChanges();
+    }
+    getRatings(courseID: string) {
+        return this._firestore.collection("ratings", ref => ref.where("courseID", "==", courseID)).valueChanges();
     }
 
-    postRatings(courseID: string, ratings: any) {
-        return this._firestore.collection("ratings").doc(courseID).set(ratings);
+    async postRatings(ratings: any) {
+        return await this._firestore.collection("ratings").add(ratings);
     }
 }

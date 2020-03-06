@@ -18,7 +18,7 @@ const { Network } = Plugins;
 export class AppComponent implements OnInit, DoCheck, OnDestroy {
     private networkListener: PluginListenerHandle;
     private networkStatus: NetworkStatus;
-    public profilePic: string = "https://images.pexels.com/photos/2250394/pexels-photo-2250394.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
+    public profilePic: string = "/assets/images/profile.png";
     public name: string = "";
     public email: string = "";
     public user: User;
