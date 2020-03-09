@@ -1,65 +1,64 @@
 <ion-header>
-  <ion-toolbar color="tertiary">
-    <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title class="ion-text-uppercase">
-      Course Content
-    </ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="tertiary">
+		<ion-menu-button slot="start"></ion-menu-button>
+		<ion-title class="ion-text-uppercase">
+			Course Content
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="heading">
-    <div class="img">
-      <img src="/assets/images/content/pdf.png">
-    </div>
-    <ion-text>
-      <h1>Documents</h1>
-      <p class="ion-no-margin">Course:
-        <br />
-        {{courseName}}
-      </p>
-    </ion-text>
-  </div>
-  <div class="container">
-    <h5 class="ion-padding-top ion-margin-start">Downloadable content</h5>
-    <div class="empty"></div>
-    <ion-list lines="none" *ngIf="!loader">
-      <ion-item *ngFor="let c of courseContent; let i = index">
-        <h1>{{i+1}}</h1>
-        <ion-icon name="arrow-down-circle-outline" slot="end" (click)="download(c.fileUrl)"></ion-icon>
-        <ion-text>
-          <h5 class="ion-no-margin">
-            {{c.title}}
-          </h5>
-          Date: {{c.date | date: "dd/MM/yyyy"}}
-        </ion-text>
-      </ion-item>
-    </ion-list>
+	<div class="heading">
+		<div class="img">
+			<img src="/assets/images/content/pdf.png">
+		</div>
+		<ion-text>
+			<h1><strong>Documents</strong></h1>
+			<p class="ion-no-margin">
+				{{courseName}}
+			</p>
+		</ion-text>
+	</div>
+	<div class="container">
+		<h5 class="ion-padding-top ion-margin-start">Downloadable content</h5>
+		<div class="empty"></div>
+		<ion-list lines="none" *ngIf="!loader">
+			<ion-item *ngFor="let c of courseContent; let i = index">
+				<h1>{{i+1}}</h1>
+				<ion-icon name="arrow-down-circle-outline" slot="end" (click)="download(c.fileUrl)"></ion-icon>
+				<ion-text>
+					<h5 class="ion-no-margin">
+						{{c.title}}
+					</h5>
+					Date: {{c.date | date: "dd/MM/yyyy"}}
+				</ion-text>
+			</ion-item>
+		</ion-list>
 
-    <ion-list lines="none" *ngIf="loader">
-      <ion-item *ngFor="let c of [1,2,3,4,5,6,7,8,9,0]">
-        <h1>
-          <ion-skeleton-text style="width: 100%; " animated></ion-skeleton-text>
-        </h1>
-        <ion-text>
-          <h5 class="ion-no-margin">
-            <ion-skeleton-text style="width: 100px; height: 14px;" animated></ion-skeleton-text>
-          </h5>
-          <ion-skeleton-text style="width: 200px; height: 14px;" animated></ion-skeleton-text>
-        </ion-text>
-      </ion-item>
-    </ion-list>
-  </div>
+		<ion-list lines="none" *ngIf="loader">
+			<ion-item *ngFor="let c of [1,2,3,4,5,6,7,8,9,0]">
+				<h1>
+					<ion-skeleton-text style="width: 100%; " animated></ion-skeleton-text>
+				</h1>
+				<ion-text>
+					<h5 class="ion-no-margin">
+						<ion-skeleton-text style="width: 100px; height: 14px;" animated></ion-skeleton-text>
+					</h5>
+					<ion-skeleton-text style="width: 200px; height: 14px;" animated></ion-skeleton-text>
+				</ion-text>
+			</ion-item>
+		</ion-list>
+	</div>
 </ion-content>
 
 <ion-footer class="ion-padding" style="background-color: white;">
-  <div class="btn-group">
-    <ion-grid class="ion-no-padding">
-      <ion-row class="ion-text-center">
-        <ion-col class="active">PDF</ion-col>
-        <ion-col class="center" routerLink="/news">News</ion-col>
-        <ion-col routerLink="/video">Video</ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+	<div class="btn-group">
+		<ion-grid class="ion-no-padding">
+			<ion-row class="ion-text-center">
+				<ion-col class="active">PDF</ion-col>
+				<ion-col class="center" routerLink="/news">News</ion-col>
+				<ion-col routerLink="/video">Video</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
 </ion-footer>

@@ -1,16 +1,84 @@
-.imageSize{
-
-    width: 16%;
-    height: 16%;
+.Randomcolor {
+	color          : white;
+	display        : flex;
+	align-items    : center;
+	justify-content: center
 }
-.iconSize{
 
-    margin-top: 30%;
-    margin-left: 40%;
-    width: 25%;
-    height: 25%;
+.dateBig {
+	margin-left : 0;
+	margin-right: 0;
+	margin-top  : 0;
+	margin-top  : 2px;
+	font-size   : 14px;
+	font-weight : 400;
+	line-height : normal;
+	z-index     : -999;
 }
-.theMessage{
 
-    text-align: center;
-}    
+.dateSmall {
+	margin-left : 0;
+	margin-right: 0;
+	margin-top  : 0;
+	margin-top  : -16px;
+	font-size   : 14px;
+	font-weight : 400;
+	line-height : normal;
+	z-index     : -999;
+}
+
+.font {
+	font-weight: 500;
+}
+
+.p {
+	color: #666;
+}
+
+.bold {
+	margin-left  : 0;
+	margin-right : 0;
+	margin-top   : 2px;
+	margin-bottom: 2px;
+	font-size    : 14px;
+	font-weight  : 400;
+	line-height  : normal;
+}
+
+.time {
+	text-align: end !important;
+	float     : right;
+}
+
+.small {
+	display: none;
+}
+
+.big {
+	display: block;
+}
+
+.name {
+	font-weight: 500;
+	width      : 130px;
+	display    : inline-block;
+}
+
+@media screen and (max-width: 750px) {
+	.small {
+		display: block;
+	}
+
+	.big {
+		display: none;
+	}
+
+	span::before {
+		content    : '\A';
+		white-space: pre;
+	}
+
+	.hide {
+		display: none;
+	}
+}

@@ -56,6 +56,21 @@ export class LandingPage implements OnInit {
                     ...c.payload.doc.data()
                 } as Course
             });
+            for (let c of this.courses) {
+                this._service.getRatings(c.id).subscribe(res => {
+                    let ratings = 0;
+                    let rating: any = res;
+                    if (rating.length > 0) {
+                        for (let r of rating) {
+                            ratings += r.rating;
+                        }
+                        ratings /= res.length
+                    } else {
+                        ratings = 0;
+                    }
+                    c.rating = Math.round(ratings);
+                });
+            }
             this.loader = false;
         }, err => {
             console.log(err);

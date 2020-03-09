@@ -55,6 +55,7 @@ export class AppService {
     async signOut() {
         sessionStorage.clear();
         localStorage.clear();
+        localStorage.setItem("slides", "true");
         return await this._auth.auth.signOut();
     }
 

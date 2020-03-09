@@ -63,6 +63,19 @@ export class EnrolledcoursesPage implements OnInit {
                             this.loader = false;
                             let course: any = res;
                             course.id = sc.courseID;
+                            this._service.getRatings(course.id).subscribe(res => {
+                                let ratings = 0;
+                                let rating: any = res;
+                                if (rating.length > 0) {
+                                    for (let r of rating) {
+                                        ratings += r.rating;
+                                    }
+                                    ratings /= res.length
+                                } else {
+                                    ratings = 0;
+                                }
+                                course.rating = Math.round(ratings);
+                            });
                             this.registeredcourse.push(course);
                             this.isRegisteredcourse = true;
                         }, err => {
@@ -73,6 +86,19 @@ export class EnrolledcoursesPage implements OnInit {
                             this.loader = false;
                             let course: any = res;
                             course.id = sc.courseID;
+                            this._service.getRatings(course.id).subscribe(res => {
+                                let ratings = 0;
+                                let rating: any = res;
+                                if (rating.length > 0) {
+                                    for (let r of rating) {
+                                        ratings += r.rating;
+                                    }
+                                    ratings /= res.length
+                                } else {
+                                    ratings = 0;
+                                }
+                                course.rating = Math.round(ratings);
+                            });
                             this.acceptedCourse.push(course);
                             this.isAcceptedCourse = true;
                         }, err => {
@@ -83,6 +109,19 @@ export class EnrolledcoursesPage implements OnInit {
                             this.loader = false;
                             let course: any = res;
                             course.id = sc.courseID;
+                            this._service.getRatings(course.id).subscribe(res => {
+                                let ratings = 0;
+                                let rating: any = res;
+                                if (rating.length > 0) {
+                                    for (let r of rating) {
+                                        ratings += r.rating;
+                                    }
+                                    ratings /= res.length
+                                } else {
+                                    ratings = 0;
+                                }
+                                course.rating = Math.round(ratings);
+                            });
                             this.unacceptedCourse.push(course);
                             this.isUnacceptedCourse = true;
                         }, err => {
@@ -93,6 +132,19 @@ export class EnrolledcoursesPage implements OnInit {
                             this.loader = false;
                             let course: any = res;
                             course.id = sc.courseID;
+                            this._service.getRatings(course.id).subscribe(res => {
+                                let ratings = 0;
+                                let rating: any = res;
+                                if (rating.length > 0) {
+                                    for (let r of rating) {
+                                        ratings += r.rating;
+                                    }
+                                    ratings /= res.length
+                                } else {
+                                    ratings = 0;
+                                }
+                                course.rating = Math.round(ratings);
+                            });
                             this.completedCourse.push(course);
                             this.isCompletedCourse = true;
                         }, err => {

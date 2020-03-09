@@ -19,11 +19,11 @@
 							<ion-button size="small" color="tertiary" style="font-size: 10px;" (click)="register(c)">
 								Register
 							</ion-button>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  0) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  1) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  2) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  3) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  4) ? 'checked': ''"></span>
 						</p>
 					</ion-text>
 				</div>
@@ -40,11 +40,11 @@
 						</p>
 						<ion-icon name="alert-circle-outline" class="ion-float-right" (click)="info(c)"></ion-icon>
 						<p>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  0) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  1) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  2) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  3) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  4) ? 'checked': ''"></span>
 						</p>
 					</ion-text>
 				</div>
@@ -60,11 +60,11 @@
 							{{c.description}}
 						</p>
 						<p>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  0) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  1) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  2) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  3) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  4) ? 'checked': ''"></span>
 						</p>
 					</ion-text>
 				</div>
@@ -80,11 +80,11 @@
 							{{c.description}}
 						</p>
 						<p>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  0) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  1) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  2) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  3) ? 'checked': ''"></span>
+							<span class="fa fa-star" [ngClass]="(c.rating >  4) ? 'checked': ''"></span>
 						</p>
 					</ion-text>
 				</div>

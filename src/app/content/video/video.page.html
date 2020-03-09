@@ -1,56 +1,55 @@
 <ion-header>
-  <ion-toolbar color="tertiary">
-    <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title class="ion-text-uppercase">
-      Course Content
-    </ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="tertiary">
+		<ion-menu-button slot="start"></ion-menu-button>
+		<ion-title class="ion-text-uppercase">
+			Course Content
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="heading">
-    <div class="img">
-      <img src="/assets/images/content/video.png">
-    </div>
-    <ion-text>
-      <h1>Videos</h1>
-      <p class="ion-no-margin">Course:
-        <br />
-        {{courseName}}
-      </p>
-    </ion-text>
-  </div>
-  <div class="container">
-    <h5 class="ion-padding-top ion-margin-start">Trending on Deepeg</h5>
-    <div class="empty"></div>
-    <div *ngIf="!loader">
-      <div *ngFor="let c of courseContent">
-        <video width="100%" controls controlsList="nodownload">
-          <source [src]="c.fileUrl" type="video/mp4">
-          Video is not supported.
-        </video>
-        <h6>{{c.title}}</h6>
-        <div class="empty"></div>
-      </div>
-    </div>
-    <div *ngIf="loader">
-      <div *ngFor="let c of [1,2,3,4,5,6,7,8,9,0]">
-        <ion-skeleton-text style="width: 100%; height: 200px;" animated></ion-skeleton-text>
-        <ion-skeleton-text class="ion-margin" style="width: 40%; height: 20px;" animated></ion-skeleton-text>
-        <div class="empty"></div>
-      </div>
-    </div>
-  </div>
+	<div class="heading">
+		<div class="img">
+			<img src="/assets/images/content/video.png">
+		</div>
+		<ion-text>
+			<h1><strong>Videos</strong></h1>
+			<p class="ion-no-margin">
+				{{courseName}}
+			</p>
+		</ion-text>
+	</div>
+	<div class="container">
+		<h5 class="ion-padding-top ion-margin-start">Trending on Deepeg</h5>
+		<div class="empty"></div>
+		<div *ngIf="!loader">
+			<div *ngFor="let c of courseContent">
+				<video width="100%" controls controlsList="nodownload">
+					<source [src]="c.fileUrl" type="video/mp4">
+					Video is not supported.
+				</video>
+				<h6>{{c.title}}</h6>
+				<div class="empty"></div>
+			</div>
+		</div>
+		<div *ngIf="loader">
+			<div *ngFor="let c of [1,2,3,4,5,6,7,8,9,0]">
+				<ion-skeleton-text style="width: 100%; height: 200px;" animated></ion-skeleton-text>
+				<ion-skeleton-text class="ion-margin" style="width: 40%; height: 20px;" animated></ion-skeleton-text>
+				<div class="empty"></div>
+			</div>
+		</div>
+	</div>
 </ion-content>
 
 <ion-footer class="ion-padding">
-  <div class="btn-group">
-    <ion-grid class="ion-no-padding">
-      <ion-row class="ion-text-center">
-        <ion-col routerLink="/documents">PDF</ion-col>
-        <ion-col class="center" routerLink="/news">News</ion-col>
-        <ion-col class="active">Video</ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+	<div class="btn-group">
+		<ion-grid class="ion-no-padding">
+			<ion-row class="ion-text-center">
+				<ion-col routerLink="/documents">PDF</ion-col>
+				<ion-col class="center" routerLink="/news">News</ion-col>
+				<ion-col class="active">Video</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
 </ion-footer>
