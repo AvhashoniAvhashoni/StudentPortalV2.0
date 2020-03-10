@@ -29,10 +29,9 @@
 		<ion-list lines="none">
 			<ion-item *ngFor="let c of courseContent; let i = index">
 				<ion-thumbnail slot="start">
-					<img src="/assets/images/home/courses/1.jpg">
+					<img *ngIf="c.coverUrl" [src]="c.coverUrl">
+					<img *ngIf="!c.coverUrl" [src]="courseImage">
 				</ion-thumbnail>
-				<!-- <ion-icon name="alert-circle-outline" slot="end"></ion-icon> -->
-
 				<ion-icon name="information-circle-outline" class="ion-float-right" slot="end"></ion-icon>
 				<ion-text>
 					<h5 class="ion-no-margin">

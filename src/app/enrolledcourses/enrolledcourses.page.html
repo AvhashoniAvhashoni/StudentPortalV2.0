@@ -29,6 +29,7 @@
 				</div>
 			</div>
 			<div *ngIf="isRegisteredcourse">
+				<span *ngIf="isRegisteredcourse ? unAccept(): ''"></span>
 				<h5>Status: Registered</h5>
 				<div class="appliedCourse" id="top" *ngFor="let c of registeredcourse">
 					<img [src]="c.coverUrl">

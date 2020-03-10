@@ -4,6 +4,7 @@ import { User } from '../class/user';
 import { Course } from '../class/course';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { StudentCourse } from '../class/studentCourse';
 
 @Component({
     selector: 'app-enrolledcourses',
@@ -166,6 +167,27 @@ export class EnrolledcoursesPage implements OnInit {
     register(course: Course) {
         this._service.setLocal("enrollCourse", course);
         this._router.navigateByUrl("/payment");
+    }
+
+    unAccept() {
+        this._service.readStudentCourse(this.user.id).subscribe(rez => {
+            if (rez.length > 0) {
+                this.studentCourse = true;
+                let studentCourse: any = rez.map(sc => {
+                    return {
+                        id: sc.payload.doc.id,
+                        ...sc.payload.doc.data()
+                    } as StudentCourse
+                });
+                for (let sc of studentCourse) {
+                    if (sc.status && !sc.dateRegistered && !sc.courseComplete) {
+                        sc.status = false;
+                        this._service.updateStudentCourse(sc).then(res => { });
+                    }
+                }
+            }
+        });
+        // this.courseList();
     }
 
     async presentToast(message: string) {

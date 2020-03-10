@@ -71,7 +71,8 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
 
     initializeApp() {
         this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
+            // this.statusBar.styleDefault();
+            this.statusBar.backgroundColorByHexString('#66001a');
             this.splashScreen.hide();
         });
     }

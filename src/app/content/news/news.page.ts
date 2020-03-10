@@ -18,6 +18,7 @@ export class NewsPage implements OnInit {
     public isCourse: boolean = true;
     public isContent: boolean = true;
     public courseName: string = "";
+    public courseImage: string = "";
     constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public alertController: AlertController) { }
 
     ngOnInit() {
@@ -54,6 +55,7 @@ export class NewsPage implements OnInit {
                             let course: any = courseRes;
                             this.isCourse = true;
                             this.courseName = course.name;
+                            this.courseImage = course.coverUrl;
                             if (course.news) {
                                 this.content = true;
                                 for (let c of course.news) {
