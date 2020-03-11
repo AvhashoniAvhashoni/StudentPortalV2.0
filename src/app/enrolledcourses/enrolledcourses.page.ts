@@ -37,7 +37,7 @@ export class EnrolledcoursesPage implements OnInit {
                 this.presentToast("You have not enrolled for any course yet!");
                 this._router.navigateByUrl("/landing");
             }
-        }, (1000));
+        }, (2000));
     }
 
     courseList() {
