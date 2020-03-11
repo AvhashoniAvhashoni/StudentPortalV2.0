@@ -19,11 +19,11 @@
 			</p>
 		</ion-text>
 	</div>
-	<div class="container" *ngIf="!loader && !content">
+	<div class="container" *ngIf="!loader && courseContent.length == 0">
 		<ion-text color="danger" class="ion-padding">No content available!</ion-text>
 	</div>
 
-	<div class="container" *ngIf="!loader && content">
+	<div class="container" *ngIf="!loader && courseContent.length > 0">
 		<h5 class="ion-padding-top ion-margin-start">Latest news</h5>
 		<div class="empty"></div>
 		<ion-list lines="none">
@@ -32,7 +32,8 @@
 					<img *ngIf="c.coverUrl" [src]="c.coverUrl">
 					<img *ngIf="!c.coverUrl" [src]="courseImage">
 				</ion-thumbnail>
-				<ion-icon name="information-circle-outline" class="ion-float-right" slot="end"></ion-icon>
+				<ion-icon name="information-circle-outline" class="ion-float-right" slot="end" (click)="viewNews(c)">
+				</ion-icon>
 				<ion-text>
 					<h5 class="ion-no-margin">
 						{{c.title}}

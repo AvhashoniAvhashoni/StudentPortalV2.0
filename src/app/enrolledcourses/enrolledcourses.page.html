@@ -39,7 +39,8 @@
 						<p>
 							{{c.description}}
 						</p>
-						<ion-icon name="alert-circle-outline" class="ion-float-right" (click)="info(c)"></ion-icon>
+						<ion-icon name="information-circle-outline" class="ion-float-right" (click)="info(c)">
+						</ion-icon>
 						<p>
 							<span class="fa fa-star" [ngClass]="(c.rating >  0) ? 'checked': ''"></span>
 							<span class="fa fa-star" [ngClass]="(c.rating >  1) ? 'checked': ''"></span>

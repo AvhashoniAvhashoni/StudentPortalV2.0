@@ -19,10 +19,15 @@
 			</p>
 		</ion-text>
 	</div>
+
+	<div class="container" *ngIf="!loader && courseContent.length == 0">
+		<ion-text color="danger" class="ion-padding">No content available!</ion-text>
+	</div>
+
 	<div class="container">
-		<h5 class="ion-padding-top ion-margin-start">Trending on Deepeg</h5>
+		<h5 class="ion-padding-top ion-margin-start" *ngIf="!loader && courseContent.length > 0">Trending on Deepeg</h5>
 		<div class="empty"></div>
-		<div *ngIf="!loader">
+		<div *ngIf="!loader && courseContent.length > 0">
 			<div *ngFor="let c of courseContent">
 				<video width="100%" controls controlsList="nodownload">
 					<source [src]="c.fileUrl" type="video/mp4">

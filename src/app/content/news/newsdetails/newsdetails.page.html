@@ -1,0 +1,32 @@
+<ion-header>
+	<ion-toolbar color="tertiary">
+		<ion-icon name="close-circle-outline" slot="end" (click)="closeModal()"></ion-icon>
+		<ion-title class="ion-text-uppercase">
+			Announcement
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div class="heading">
+		<div class="img">
+			<img src="/assets/images/content/announc.png">
+		</div>
+		<ion-text>
+			<h1><strong> {{courseName}}</strong></h1>
+			<p class="ion-no-margin">
+			</p>
+		</ion-text>
+	</div>
+	<div class="container">
+		<h5 class="ion-padding-top ion-margin-start">Date posted: {{news.date | date: "dd MMM yyyy"}}</h5>
+		<div class="empty"></div>
+		<ion-text class="ion-padding ion-text-center">
+			<h4 class="m-0">{{news.title}}</h4>
+			<p>{{news.message}}</p>
+		</ion-text>
+		<div class="text-center ion-padding-bottom">
+			<img [src]="courseImage" class="w-50">
+		</div>
+	</div>
+</ion-content>

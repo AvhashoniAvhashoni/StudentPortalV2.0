@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController } from '@ionic/angular';
 import { User } from 'src/app/class/user';
 import { StudentCourse } from 'src/app/class/studentCourse';
+import { NewsdetailsPage } from './newsdetails/newsdetails.page';
 
 @Component({
     selector: 'app-news',
@@ -11,15 +12,12 @@ import { StudentCourse } from 'src/app/class/studentCourse';
     styleUrls: ['./news.page.scss'],
 })
 export class NewsPage implements OnInit {
-    public user: User;
     public courseContent: Array<any> = [];
     public content: boolean = false;
     public loader: boolean = true;
-    public isCourse: boolean = true;
-    public isContent: boolean = true;
-    public courseName: string = "";
-    public courseImage: string = "";
-    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public alertController: AlertController) { }
+    public courseName: string = null;
+    public courseImage: string = null;
+    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public alertController: AlertController, private _modalController: ModalController) { }
 
     ngOnInit() {
         this.courseContents();
@@ -27,33 +25,30 @@ export class NewsPage implements OnInit {
 
     ionViewDidEnter() {
         setTimeout(() => {
-            if (!this.isContent) {
+            if (!this.courseName) {
                 this._router.navigateByUrl("/landing").then(res => {
                     this.presentToast("You are not permitted to view the course content!");
                 });
             }
-        }, 1000);
+        }, 2000);
     }
 
     courseContents() {
-        this.user = this._service.getLocal("user");
-        this._service.readStudentCourse(this.user.id).subscribe(res => {
-            if (res.length == 0) {
-                this.isContent = false;
-            } else {
+        let user: User = this._service.getLocal("user");
+        this._service.readStudentCourse(user.id).subscribe(res => {
+            if (res.length > 0) {
                 let userCourse = res.map(uc => {
                     return {
                         id: uc.payload.doc.id,
                         ...uc.payload.doc.data()
-                    } as StudentCourse
+                    } as StudentCourse;
                 });
                 for (let i = 0; i < userCourse.length; i++) {
-                    if (userCourse[i].status && userCourse[i].dateRegistered && !userCourse[i].courseComplete) {
+                    if (userCourse[i].dateRegistered && userCourse[i].status && !userCourse[i].courseComplete) {
                         this._service.readCourse(userCourse[i].courseID).subscribe(courseRes => {
                             this.courseContent = [];
                             this.loader = false;
                             let course: any = courseRes;
-                            this.isCourse = true;
                             this.courseName = course.name;
                             this.courseImage = course.coverUrl;
                             if (course.news) {
@@ -78,6 +73,16 @@ export class NewsPage implements OnInit {
         });
     }
 
+    async viewNews(news: any) {
+        this._service.setSession("news", news);
+        sessionStorage.setItem("courseName", this.courseName);
+        sessionStorage.setItem("courseImage", this.courseImage);
+        const modal = await this._modalController.create({
+            component: NewsdetailsPage
+        });
+        return await modal.present();
+    }
+
     async presentToast(message: string) {
         const toast = await this._toastController.create({
             message: message,
@@ -90,7 +95,6 @@ export class NewsPage implements OnInit {
     async presentAlert(message: string) {
         const alert = await this.alertController.create({
             header: 'Alert',
-            // subHeader: 'Subtitle',
             message: message,
             buttons: ['OK']
         });

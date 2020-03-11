@@ -3,7 +3,7 @@ import { StudentCourse } from 'src/app/class/studentCourse';
 import { AppService } from 'src/app/app.service';
 import { User } from 'src/app/class/user';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Course } from 'src/app/class/course';
 
 @Component({
@@ -16,22 +16,11 @@ export class DocumentsPage implements OnInit {
     public courseContent: Array<any> = [];
     public content: boolean = false;
     public loader: boolean = true;
-    public isCourse: boolean = true;
     public courseName: string = "";
-    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController) { }
+    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public alertController: AlertController) { }
 
     ngOnInit() {
         this.courseContents();
-    }
-
-    ionViewDidEnter() {
-        setTimeout(() => {
-            if (!this.isCourse) {
-                this._router.navigateByUrl("/landing").then(res => {
-                    this.presentToast("You are not permitted to view the course content!");
-                });
-            }
-        }, 1000);
     }
 
     courseContents() {
@@ -50,7 +39,6 @@ export class DocumentsPage implements OnInit {
                         this.loader = false;
                         this.content = true;
                         let course: any = courseRes;
-                        this.isCourse = true;
                         this.courseName = course.name;
                         if (course.contents) {
                             for (let c of course.contents) {
@@ -58,6 +46,9 @@ export class DocumentsPage implements OnInit {
                                     this.courseContent.push(c);
                                     this.courseContent.sort((a, b) => (a.uploadDate < b.uploadDate) ? 1 : ((b.uploadDate < a.uploadDate) ? -1 : 0));
                                 }
+                            }
+                            if (this.courseContent.length == 0) {
+                                this.presentAlert("No course content has been uploaded!");
                             }
                         }
                     }, err => {
@@ -83,5 +74,14 @@ export class DocumentsPage implements OnInit {
             color: "tertiary"
         });
         toast.present();
+    }
+
+    async presentAlert(message: string) {
+        const alert = await this.alertController.create({
+            header: 'Alert',
+            message: message,
+            buttons: ['OK']
+        });
+        await alert.present();
     }
 }

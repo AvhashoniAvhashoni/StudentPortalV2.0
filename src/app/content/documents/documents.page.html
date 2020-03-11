@@ -19,10 +19,16 @@
 			</p>
 		</ion-text>
 	</div>
+
+	<div class="container" *ngIf="!loader && courseContent.length == 0">
+		<ion-text color="danger" class="ion-padding">No content available!</ion-text>
+	</div>
+
 	<div class="container">
-		<h5 class="ion-padding-top ion-margin-start">Downloadable content</h5>
+		<h5 class="ion-padding-top ion-margin-start" *ngIf="!loader && courseContent.length > 0">Downloadable content
+		</h5>
 		<div class="empty"></div>
-		<ion-list lines="none" *ngIf="!loader">
+		<ion-list lines="none" *ngIf="!loader && courseContent.length > 0">
 			<ion-item *ngFor="let c of courseContent; let i = index">
 				<h1>{{i+1}}</h1>
 				<ion-icon name="arrow-down-circle-outline" slot="end" (click)="download(c.fileUrl)"></ion-icon>
