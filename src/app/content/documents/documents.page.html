@@ -31,7 +31,7 @@
 		<ion-list lines="none" *ngIf="!loader && courseContent.length > 0">
 			<ion-item *ngFor="let c of courseContent; let i = index">
 				<h1>{{i+1}}</h1>
-				<ion-icon name="arrow-down-circle-outline" slot="end" (click)="download(c.fileUrl)"></ion-icon>
+				<ion-icon name="arrow-down-circle-outline" slot="end" (click)="download(c.fileUrl, c.title)"></ion-icon>
 				<ion-text>
 					<h5 class="ion-no-margin">
 						{{c.title}}

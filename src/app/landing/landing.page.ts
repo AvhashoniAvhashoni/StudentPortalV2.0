@@ -1,25 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { Course } from '../class/course';
 import { User } from '../class/user';
+import { StudentCourse } from '../class/studentCourse';
+import { Notification } from '../class/notification';
 
 @Component({
     selector: 'app-landing',
     templateUrl: './landing.page.html',
     styleUrls: ['./landing.page.scss'],
 })
-export class LandingPage implements OnInit {
+export class LandingPage implements OnInit, DoCheck {
     public loader: boolean = true;
     public courses: any;
     private user: User;
     public registeredCoures: any;
+    public notificationColor: string = "#fff";
+    public changeColor: boolean = false;
+    public notification: any;
     constructor(private _router: Router, private _service: AppService) { }
+
+    ngDoCheck() {
+        if (this.changeColor) {
+            if (this.notificationColor == "#600018")
+                setTimeout(res => {
+                    this.notificationColor = "#fff";
+                }, (1000));
+            else
+                setTimeout(res => {
+                    this.notificationColor = "#600018";
+                }, (1000));
+        }
+    }
 
     ngOnInit() {
         this.user = this._service.getLocal("user");
         this.readCourses();
         this.enrolledCourse();
+        this.notifications();
     }
 
     enrolledCourse() {
@@ -90,5 +109,47 @@ export class LandingPage implements OnInit {
     info(course: Course) {
         this._service.setSession("enrolledCourseInfo", course);
         this._router.navigateByUrl("/enrolledcoursesinfo");
+    }
+
+    notifications() {
+        let user: User = this._service.getLocal("user");
+        this._service.readStudentCourse(user.id).subscribe(res => {
+            if (res.length > 0) {
+                let userCourse = res.map(uc => {
+                    return {
+                        id: uc.payload.doc.id,
+                        ...uc.payload.doc.data()
+                    } as StudentCourse;
+                });
+                for (let uc of userCourse) {
+                    if (uc.dateRegistered && uc.status && !uc.courseComplete) {
+                        this._service.readNotifications(uc.courseID).subscribe(res => {
+                            if (res.length > 0) {
+                                this.notification = res.map(n => {
+                                    return {
+                                        id: n.payload.doc.id,
+                                        ...n.payload.doc.data()
+                                    } as Notification;
+                                });
+                                for (let n of this.notification) {
+                                    if (n.userIDs) {
+                                        for (let uID of n.userIDs) {
+                                            if (uID != user.id) {
+                                                this.changeColor = true;
+                                            }
+                                        }
+                                    } else {
+                                        this.changeColor = true;
+                                    }
+                                }
+                            }
+                        }, err => {
+                            console.log(err);
+                        });
+                        break;
+                    }
+                }
+            }
+        });
     }
 }

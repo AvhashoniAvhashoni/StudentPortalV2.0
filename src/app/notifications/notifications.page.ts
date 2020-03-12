@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
+import { Notification } from '../class/notification';
+import { User } from '../class/user';
+import { StudentCourse } from '../class/studentCourse';
 
 @Component({
     selector: 'app-notifications',
@@ -6,10 +10,53 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./notifications.page.scss'],
 })
 export class NotificationsPage implements OnInit {
-
-    constructor() { }
+    public notification: any;
+    constructor(private _service: AppService) { }
 
     ngOnInit() {
+        this.notifications();
+    }
+
+    notifications() {
+        let user: User = this._service.getLocal("user");
+        this._service.readStudentCourse(user.id).subscribe(res => {
+            if (res.length > 0) {
+                let userCourse = res.map(uc => {
+                    return {
+                        id: uc.payload.doc.id,
+                        ...uc.payload.doc.data()
+                    } as StudentCourse;
+                });
+                for (let uc of userCourse) {
+                    if (uc.dateRegistered && uc.status && !uc.courseComplete) {
+                        this._service.readNotifications(uc.courseID).subscribe(res => {
+                            if (res.length > 0) {
+                                this.notification = res.map(n => {
+                                    return {
+                                        id: n.payload.doc.id,
+                                        ...n.payload.doc.data()
+                                    } as Notification;
+                                });
+                                for (let n of this.notification) {
+                                    if (n.userIDs) {
+                                        for (let uID of n.userIDs) {
+                                            if (uID != user.id) {
+                                                n.color = true;
+                                            }
+                                        }
+                                    } else {
+                                        n.color = true;
+                                    }
+                                }
+                            }
+                        }, err => {
+                            console.log(err);
+                        });
+                        break;
+                    }
+                }
+            }
+        });
     }
 
     public colors(letter: string): string {

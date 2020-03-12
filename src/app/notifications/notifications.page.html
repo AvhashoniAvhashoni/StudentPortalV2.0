@@ -5,39 +5,28 @@
 	</ion-toolbar>
 </ion-header>
 <ion-content>
-	<ion-list>
-		<ion-item-sliding *ngFor="let msg of [1,2,3,4,5,6,7,8,9,0]" class="big">
-			<ion-item>
+	<ion-list lines="none">
+		<ion-item-sliding *ngFor="let n of notification" class="big">
+			<ion-item [ngClass]="n.color ? 'itemColor' : ''">
 				<ion-avatar slot="start" class="Randomcolor"
-					[ngStyle]="{'background-color': colors('Avhashoni'.slice(0, 1))}">
-					<!-- {{msg.name | slice:0:1}} -->
-					A
+					[ngStyle]="{'background-color': colors(n.title.slice(0, 1))}">
+					{{n.title| slice:0:1}}
 				</ion-avatar>
 				<ion-label>
 					<span class="font">
 						<span class="name">
-							Avhashoni
+							{{n.title}}
 						</span>
 						<span class="ion-float-right dateBig">
-							16:45
+							{{n.date}} {{n.time}}
 						</span>
 					</span>
 					<span class="font">
-						Registration
+						{{n.subTitle}}
 					</span>
 					<span class="hide "> &nbsp; - &nbsp; </span>
 					<span class="p">
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-						the
-						industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-						type
-						and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-						the
-						leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
-						1960s
-						with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-						desktop
-						publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+						{{n.message}}
 					</span>
 				</ion-label>
 			</ion-item>
@@ -50,34 +39,24 @@
 				</ion-item-option>
 			</ion-item-options>
 		</ion-item-sliding>
-		<ion-item-sliding class="small" *ngFor="let msg of [1,2,3,4,5,6,7,8,9,0]">
-			<ion-item>
+		<ion-item-sliding class="small" *ngFor="let n of notification">
+			<ion-item [ngClass]="n.color ? 'itemColor' : ''">
 				<ion-avatar slot="start" class="Randomcolor"
-					[ngStyle]="{'background-color': colors('Avhashoni'.slice(0, 1))}">
-					A
+					[ngStyle]="{'background-color': colors(n.title.slice(0, 1))}">
+					{{n.title| slice:0:1}}
 				</ion-avatar>
 				<ion-label>
 					<h2 class="font">
-						Avhashoni
+						{{n.title}}
 						<span class="ion-float-right dateSmall">
-							16:45
+							{{n.date | date: "d MMM"}} {{n.time}}
 						</span>
 					</h2>
 					<h3 class="font">
-						Registration
+						{{n.subTitle}}
 					</h3>
 					<p>
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-						the
-						industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-						type
-						and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-						the
-						leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
-						1960s
-						with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-						desktop
-						publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+						{{n.message}}
 					</p>
 				</ion-label>
 			</ion-item>
@@ -89,6 +68,7 @@
 					<ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon>
 				</ion-item-option>
 			</ion-item-options>
+			<hr class="m-0">
 		</ion-item-sliding>
 	</ion-list>
 </ion-content>

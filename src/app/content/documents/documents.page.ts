@@ -5,6 +5,7 @@ import { User } from 'src/app/class/user';
 import { Router } from '@angular/router';
 import { ToastController, AlertController } from '@ionic/angular';
 import { Course } from 'src/app/class/course';
+import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
 
 @Component({
     selector: 'app-documents',
@@ -17,7 +18,7 @@ export class DocumentsPage implements OnInit {
     public content: boolean = false;
     public loader: boolean = true;
     public courseName: string = "";
-    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public alertController: AlertController) { }
+    constructor(private _service: AppService, private _router: Router, private _toastController: ToastController, public alertController: AlertController, private downloader: Downloader) { }
 
     ngOnInit() {
         this.courseContents();
@@ -63,8 +64,29 @@ export class DocumentsPage implements OnInit {
         });
     }
 
-    download(file) {
-        window.open(file);
+    download(file, title) {
+        // window.open(file);
+        var request: DownloadRequest = {
+            uri: file,
+            title: title,
+            description: '',
+            mimeType: 'application/pdf',
+            visibleInDownloadsUi: true,
+            notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+            destinationInExternalFilesDir: {
+                dirType: 'Downloads',
+                subPath: 'MyFile.pdf'
+            }
+        };
+
+
+        this.downloader.download(request).then((location: string) => {
+            console.log('File downloaded at:' + location)
+            this.presentToast("Download...");
+        }).catch((error: any) =>{
+			console.log(error);
+            this.presentAlert("Error dounloading document!");
+		});
     }
 
     async presentToast(message: string) {

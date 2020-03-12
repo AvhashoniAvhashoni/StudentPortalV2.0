@@ -14,25 +14,27 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http'
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { Downloader } from '@ionic-native/downloader/ngx';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    HttpClientModule,
-    AngularFireStorageModule
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    entryComponents: [],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        AngularFireAuthModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        HttpClientModule,
+        AngularFireStorageModule
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        Downloader
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

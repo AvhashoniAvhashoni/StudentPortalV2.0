@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { StudentCourse } from './class/studentCourse';
+import {Notification} from './class/notification';
 
 export interface MapboxOutput {
     attribution: string;
@@ -69,6 +70,14 @@ export class AppService {
 
     async updateUser(user: User) {
         return await this._firestore.collection("students").doc(user.id).set(user);
+    }
+
+    readNotifications(courseID: string) {
+        return this._firestore.collection("notification", ref => ref.orderBy("date")).snapshotChanges();
+    }
+
+    async updateNotifications(notification: Notification) {
+        return await this._firestore.collection("notification").doc(notification.id).set(notification);
     }
 
     async upload(folder: string, fileName: string, file: File) {
