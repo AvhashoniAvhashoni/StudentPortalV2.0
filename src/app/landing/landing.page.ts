@@ -26,11 +26,11 @@ export class LandingPage implements OnInit, DoCheck {
             if (this.notificationColor == "#600018")
                 setTimeout(res => {
                     this.notificationColor = "#fff";
-                }, (1000));
+                }, (700));
             else
                 setTimeout(res => {
                     this.notificationColor = "#600018";
-                }, (1000));
+                }, (700));
         }
     }
 
@@ -124,6 +124,8 @@ export class LandingPage implements OnInit, DoCheck {
                 for (let uc of userCourse) {
                     if (uc.dateRegistered && uc.status && !uc.courseComplete) {
                         this._service.readNotifications(uc.courseID).subscribe(res => {
+                            this.changeColor = false;
+                            this.notificationColor = "#fff";
                             if (res.length > 0) {
                                 this.notification = res.map(n => {
                                     return {
@@ -132,15 +134,16 @@ export class LandingPage implements OnInit, DoCheck {
                                     } as Notification;
                                 });
                                 for (let n of this.notification) {
-                                    if (n.userIDs) {
-                                        for (let uID of n.userIDs) {
-                                            if (uID != user.id) {
-                                                this.changeColor = true;
-                                            }
-                                        }
-                                    } else {
+                                    if (!n.read) {
+                                        n.read = [];
                                         this.changeColor = true;
                                     }
+                                    for (let r of n.read) {
+                                        if (r.user != user.id) {
+                                            this.changeColor = true;
+                                        }
+                                    }
+
                                 }
                             }
                         }, err => {

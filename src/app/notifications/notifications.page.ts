@@ -3,6 +3,7 @@ import { AppService } from '../app.service';
 import { Notification } from '../class/notification';
 import { User } from '../class/user';
 import { StudentCourse } from '../class/studentCourse';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-notifications',
@@ -11,9 +12,13 @@ import { StudentCourse } from '../class/studentCourse';
 })
 export class NotificationsPage implements OnInit {
     public notification: any;
+    public date: string;
+    public unread: number = null;
     constructor(private _service: AppService) { }
 
     ngOnInit() {
+        let locale = new DatePipe("en-ZA");
+        this.date = locale.transform(new Date(), "MM/dd/yyyy");
         this.notifications();
     }
 
@@ -30,6 +35,7 @@ export class NotificationsPage implements OnInit {
                 for (let uc of userCourse) {
                     if (uc.dateRegistered && uc.status && !uc.courseComplete) {
                         this._service.readNotifications(uc.courseID).subscribe(res => {
+                            this.unread = null;
                             if (res.length > 0) {
                                 this.notification = res.map(n => {
                                     return {
@@ -37,16 +43,23 @@ export class NotificationsPage implements OnInit {
                                         ...n.payload.doc.data()
                                     } as Notification;
                                 });
+                                this.notification.sort((a, b) => (a.date < b.date) ? 1 : ((b.time < a.time) ? -1 : 0));
                                 for (let n of this.notification) {
-                                    if (n.userIDs) {
-                                        for (let uID of n.userIDs) {
-                                            if (uID != user.id) {
-                                                n.color = true;
-                                            }
-                                        }
-                                    } else {
+                                    if (!n.read) {
+                                        n.read = [];
                                         n.color = true;
+                                        this.unread++;
                                     }
+                                    for (let r of n.read) {
+                                        if (r.user != user.id) {
+                                            n.color = true;
+                                            this.unread++;
+                                        }
+                                        if (r.user == user.id && r.delete) {
+                                            n.delete = true;
+                                        }
+                                    }
+
                                 }
                             }
                         }, err => {
@@ -57,6 +70,24 @@ export class NotificationsPage implements OnInit {
                 }
             }
         });
+    }
+
+    readNotification(notification) {
+        let user: User = this._service.getLocal("user");
+        if (notification.color) {
+            if (!notification.read) {
+                notification.read = [];
+            }
+            delete notification.color;
+            delete notification.delete;
+            this.unread = null;
+            notification.read.push({ user: user.id });
+            this._service.updateNotifications(notification).then(res => {
+            }, err => {
+                console.log(err);
+            });
+        }
+        this.notifications();
     }
 
     public colors(letter: string): string {

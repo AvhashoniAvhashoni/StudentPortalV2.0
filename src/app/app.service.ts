@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { StudentCourse } from './class/studentCourse';
-import {Notification} from './class/notification';
+import { Notification } from './class/notification';
 
 export interface MapboxOutput {
     attribution: string;
@@ -73,7 +73,7 @@ export class AppService {
     }
 
     readNotifications(courseID: string) {
-        return this._firestore.collection("notification", ref => ref.orderBy("date")).snapshotChanges();
+        return this._firestore.collection("notification", ref => ref.orderBy("date", "desc")).snapshotChanges();
     }
 
     async updateNotifications(notification: Notification) {

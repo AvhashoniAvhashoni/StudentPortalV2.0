@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
     public email: string = "";
     public user: User;
     public userNetwork: boolean = false;
+    public unread: number = null;
 
     public appPages = [
         {
@@ -89,6 +90,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
     }
 
     async ngOnInit() {
+        this.notifications();
         this.user = this._service.getLocal("user");
         if (this.user) {
             this._router.navigateByUrl("/landing");
@@ -109,6 +111,50 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
         // });
         // this.networkStatus = await Network.getStatus();
         // this.checkUser(this.networkStatus);
+    }
+
+    notifications() {
+        let user: User = this._service.getLocal("user");
+        this._service.readStudentCourse(user.id).subscribe(res => {
+            if (res.length > 0) {
+                let userCourse = res.map(uc => {
+                    return {
+                        id: uc.payload.doc.id,
+                        ...uc.payload.doc.data()
+                    } as StudentCourse;
+                });
+                for (let uc of userCourse) {
+                    if (uc.dateRegistered && uc.status && !uc.courseComplete) {
+                        this._service.readNotifications(uc.courseID).subscribe(res => {
+                            this.unread = null;
+                            if (res.length > 0) {
+                                this.notification = res.map(n => {
+                                    return {
+                                        id: n.payload.doc.id,
+                                        ...n.payload.doc.data()
+                                    } as Notification;
+                                });
+                                this.notification.sort((a, b) => (a.date < b.date) ? 1 : ((b.time < a.time) ? -1 : 0));
+                                for (let n of this.notification) {
+                                    if (!n.read) {
+                                        n.read = [];
+                                        this.unread++;
+                                    }
+                                    for (let r of n.read) {
+                                        if (r.user != user.id) {
+                                            this.unread++;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }, err => {
+                            console.log(err);
+                        });
+                    }
+                }
+            }
+        });
     }
 
     // checkUser(networkStatus) {
