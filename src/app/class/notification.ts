@@ -7,5 +7,5 @@ export class Notification {
     public date: string;
     public image: string;
     public courseID: string;
-    public userIDs: any;
+    public read: any;
 }

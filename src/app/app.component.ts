@@ -7,6 +7,8 @@ import { User } from './class/user';
 import { AppService } from './app.service';
 import { Router } from '@angular/router';
 import { Plugins, PluginListenerHandle, NetworkStatus } from "@capacitor/core";
+import { StudentCourse } from './class/studentCourse';
+import { Notification } from './class/notification';
 
 const { Network } = Plugins;
 
@@ -128,14 +130,14 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
                         this._service.readNotifications(uc.courseID).subscribe(res => {
                             this.unread = null;
                             if (res.length > 0) {
-                                this.notification = res.map(n => {
+                                let notification = res.map(n => {
                                     return {
                                         id: n.payload.doc.id,
                                         ...n.payload.doc.data()
                                     } as Notification;
                                 });
-                                this.notification.sort((a, b) => (a.date < b.date) ? 1 : ((b.time < a.time) ? -1 : 0));
-                                for (let n of this.notification) {
+                                notification.sort((a, b) => (a.date < b.date) ? 1 : ((b.time < a.time) ? -1 : 0));
+                                for (let n of notification) {
                                     if (!n.read) {
                                         n.read = [];
                                         this.unread++;
