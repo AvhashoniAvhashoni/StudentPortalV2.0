@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
     public email: string = "";
     public user: User;
     public userNetwork: boolean = false;
-    public unread: number = null;
+    public unread: string = null;
 
     public appPages = [
         {
@@ -137,17 +137,22 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
                                     } as Notification;
                                 });
                                 notification.sort((a, b) => (a.date < b.date) ? 1 : ((b.time < a.time) ? -1 : 0));
+                                let unread: number = 0;
                                 for (let n of notification) {
                                     if (!n.read) {
                                         n.read = [];
-                                        this.unread++;
+                                        unread++;
                                     }
                                     for (let r of n.read) {
                                         if (r.user != user.id) {
-                                            this.unread++;
+                                            unread++;
                                         }
                                     }
-
+                                }
+                                if (unread > 9) {
+                                    this.unread = "9+";
+                                } else if (unread > 0) {
+                                    this.unread = unread.toString();
                                 }
                             }
                         }, err => {

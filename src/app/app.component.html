@@ -19,7 +19,10 @@
 						<ion-item [routerDirection]="'root'" [routerLink]="[p.url]" color="tertiary" lines="none">
 							<ion-icon slot="start" [name]="p.icon"></ion-icon>
 							<ion-label>
-								{{p.title}} <span *ngIf="p.title == 'Notification'" class="float-right pr-2 notification">{{unread}}</span>
+								{{p.title}} <span *ngIf="p.title == 'Notification' && unread"
+									class="float-right notification">
+									<p>{{unread}}</p>
+								</span>
 							</ion-label>
 						</ion-item>
 					</ion-menu-toggle>
