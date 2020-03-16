@@ -65,7 +65,7 @@ export class DocumentsPage implements OnInit {
     }
 
     download(file, title) {
-        // window.open(file);
+        this.presentToast("Download...");
         var request: DownloadRequest = {
             uri: file,
             title: title,
@@ -79,14 +79,12 @@ export class DocumentsPage implements OnInit {
             }
         };
 
-
         this.downloader.download(request).then((location: string) => {
-            console.log('File downloaded at:' + location)
-            this.presentToast("Download...");
-        }).catch((error: any) =>{
-			console.log(error);
+            console.log('File downloaded at:' + location);
+        }).catch((error: any) => {
+            console.log(error);
             this.presentAlert("Error dounloading document!");
-		});
+        });
     }
 
     async presentToast(message: string) {

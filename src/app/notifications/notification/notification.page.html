@@ -1,0 +1,21 @@
+<ion-header>
+	<ion-toolbar color="tertiary">
+		<ion-icon name="close-circle-outline" slot="end" (click)="closeModal()"></ion-icon>
+		<ion-title class="ion-text-uppercase">
+			{{notification.title}}
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div class="container">
+		<ion-text>
+			<h1>{{notification.subTitle}}</h1>
+			<small>{{notification.date | date: "d LLL yyyy"}} {{notification.time}}</small>
+			<p>{{notification.message}}</p>
+		</ion-text>
+		<div class="w-100 ion-padding">
+			<ion-icon name="trash" class="ion-float-right" color="tertiary" (click)="deleteNotification()"></ion-icon>
+		</div>
+	</div>
+</ion-content>

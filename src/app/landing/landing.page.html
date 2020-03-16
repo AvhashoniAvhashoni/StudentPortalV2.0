@@ -1,6 +1,10 @@
 <ion-header>
 	<ion-toolbar color="tertiary">
-		<ion-icon name="notifications" class="ion-float-right ion-padding-end" [ngStyle]="{'color': notificationColor}"
+		<!-- [ngClass]="changeColor ? 'ion-float-right ion-padding-end wow flash loop': 'ion-float-right ion-padding-end'" -->
+		<!-- class="ion-float-right ion-padding-end" [ngStyle]="{'color': notificationColor}" -->
+		<ion-icon name="notifications" *ngIf="changeColor" class='ion-float-right ion-padding-end wow flash infinite'
+			routerLink="/notifications"></ion-icon>
+		<ion-icon name="notifications" *ngIf="!changeColor" class='ion-float-right ion-padding-end'
 			routerLink="/notifications"></ion-icon>
 		<ion-menu-button slot="start"></ion-menu-button>
 		<ion-title>HOME</ion-title>

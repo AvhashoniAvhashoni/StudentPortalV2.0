@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { Course } from '../class/course';
@@ -11,7 +11,7 @@ import { Notification } from '../class/notification';
     templateUrl: './landing.page.html',
     styleUrls: ['./landing.page.scss'],
 })
-export class LandingPage implements OnInit, DoCheck {
+export class LandingPage implements OnInit {
     public loader: boolean = true;
     public courses: any;
     private user: User;
@@ -21,18 +21,18 @@ export class LandingPage implements OnInit, DoCheck {
     public notification: any;
     constructor(private _router: Router, private _service: AppService) { }
 
-    ngDoCheck() {
-        if (this.changeColor) {
-            if (this.notificationColor == "#600018")
-                setTimeout(res => {
-                    this.notificationColor = "#fff";
-                }, (700));
-            else
-                setTimeout(res => {
-                    this.notificationColor = "#600018";
-                }, (700));
-        }
-    }
+    // ngDoCheck() {
+    //     if (this.changeColor) {
+    //         if (this.notificationColor == "#600018")
+    //             setTimeout(res => {
+    //                 this.notificationColor = "#fff";
+    //             }, (700));
+    //         else
+    //             setTimeout(res => {
+    //                 this.notificationColor = "#600018";
+    //             }, (700));
+    //     }
+    // }
 
     ngOnInit() {
         this.user = this._service.getLocal("user");
@@ -134,16 +134,17 @@ export class LandingPage implements OnInit, DoCheck {
                                     } as Notification;
                                 });
                                 for (let n of this.notification) {
-                                    if (!n.read) {
-                                        n.read = [];
-                                        this.changeColor = true;
-                                    }
-                                    for (let r of n.read) {
-                                        if (r.user != user.id) {
-                                            this.changeColor = true;
+                                    let changeColor: boolean = false;
+                                    if (n.read) {
+                                        for (let r of n.read) {
+                                            if (r.user == user.id) {
+                                                changeColor = true;
+                                            }
                                         }
                                     }
-
+                                    if (!changeColor) {
+                                        this.changeColor = true;
+                                    }
                                 }
                             }
                         }, err => {

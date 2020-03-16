@@ -140,14 +140,17 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
                                     notification.sort((a, b) => (a.date < b.date) ? 1 : ((b.time < a.time) ? -1 : 0));
                                     let unread: number = 0;
                                     for (let n of notification) {
-                                        if (!n.read) {
-                                            n.read = [];
-                                            unread++;
-                                        }
-                                        for (let r of n.read) {
-                                            if (r.user != user.id) {
-                                                unread++;
+                                        let read: boolean = false;
+                                        if (n.read) {
+                                            for (let r of n.read) {
+                                                if (r.user == user.id) {
+                                                    read = true;
+                                                    break;
+                                                }
                                             }
+                                        }
+                                        if (!read) {
+                                            unread++;
                                         }
                                     }
                                     if (unread > 9) {

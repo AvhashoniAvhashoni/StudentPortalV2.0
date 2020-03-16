@@ -4,6 +4,8 @@ import { Notification } from '../class/notification';
 import { User } from '../class/user';
 import { StudentCourse } from '../class/studentCourse';
 import { DatePipe } from '@angular/common';
+import { NotificationPage } from './notification/notification.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
     selector: 'app-notifications',
@@ -14,7 +16,7 @@ export class NotificationsPage implements OnInit {
     public notification: any;
     public date: string;
     public unread: number = null;
-    constructor(private _service: AppService) { }
+    constructor(private _service: AppService, private _modalController: ModalController) { }
 
     ngOnInit() {
         let locale = new DatePipe("en-ZA");
@@ -47,19 +49,20 @@ export class NotificationsPage implements OnInit {
                                 for (let n of this.notification) {
                                     if (!n.read) {
                                         n.read = [];
-                                        n.color = true;
-                                        this.unread++;
                                     }
+                                    let color = true;
                                     for (let r of n.read) {
-                                        if (r.user != user.id) {
-                                            n.color = true;
+                                        if (r.user == user.id) {
+                                            if (r.delete) {
+                                                n.delete = r.delete;
+                                            }
+                                            color = false;
                                             this.unread++;
                                         }
-                                        if (r.user == user.id && r.delete) {
-                                            n.delete = true;
-                                        }
                                     }
-
+                                    if (color) {
+                                        n.color = true;
+                                    }
                                 }
                             }
                         }, err => {
@@ -72,8 +75,9 @@ export class NotificationsPage implements OnInit {
         });
     }
 
-    readNotification(notification) {
+    async readNotification(notification) {
         let user: User = this._service.getLocal("user");
+        let addID: boolean = true;
         if (notification.color) {
             if (!notification.read) {
                 notification.read = [];
@@ -81,13 +85,25 @@ export class NotificationsPage implements OnInit {
             delete notification.color;
             delete notification.delete;
             this.unread = null;
-            notification.read.push({ user: user.id });
+            for (let n of notification.read) {
+                if (n.user == user.id) {
+                    addID = false;
+                }
+            }
+            if (addID) {
+                notification.read.push({ user: user.id });
+            }
             this._service.updateNotifications(notification).then(res => {
             }, err => {
                 console.log(err);
             });
         }
         this.notifications();
+        const modal = await this._modalController.create({
+            component: NotificationPage,
+            componentProps: { notification }
+        });
+        return await modal.present();
     }
 
     public colors(letter: string): string {
