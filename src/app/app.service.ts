@@ -25,6 +25,14 @@ export interface Feature {
 export class AppService {
     constructor(private _auth: AngularFireAuth, private _firestore: AngularFirestore, private _http: HttpClient, private _storage: AngularFireStorage) { }
 
+    public get isLoggedIn(): boolean {
+        return this.getLocal("user") ? true : false;
+    }
+
+    public get isSildes(): boolean {
+        return localStorage.getItem("slides") ? true : false;
+    }
+    
     setSession(key: string, value: any) {
         return sessionStorage.setItem(key, JSON.stringify(value));
     }

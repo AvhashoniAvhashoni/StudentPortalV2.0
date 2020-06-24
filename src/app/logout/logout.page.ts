@@ -13,9 +13,8 @@ export class LogoutPage implements OnInit {
     constructor(private _service: AppService, private _router: Router, private _menuCtrl: MenuController) { }
 
     ngOnInit() {
-        this._router.navigateByUrl("/signin").then(res => {
-            this._service.signOut();
-            this._menuCtrl.enable(false);
-        });
+        this._service.signOut();
+        this._menuCtrl.enable(false);
+        this._router.navigateByUrl("/signin");
     }
 }

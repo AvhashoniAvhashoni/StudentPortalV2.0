@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Plugins, PluginListenerHandle, NetworkStatus } from "@capacitor/core";
 import { StudentCourse } from './class/studentCourse';
 import { Notification } from './class/notification';
+import { Location } from '@angular/common';
 
 const { Network } = Plugins;
 
@@ -24,7 +25,6 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
     public name: string = "";
     public email: string = "";
     public user: User;
-    public userNetwork: boolean = false;
     public unread: string = null;
 
     public appPages = [
@@ -67,14 +67,14 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
         private statusBar: StatusBar,
         private _menuCtr: MenuController,
         private _service: AppService,
-        private _router: Router
+        private _router: Router,
+        private _location: Location
     ) {
         this.initializeApp();
     }
 
     initializeApp() {
         this.platform.ready().then(() => {
-            // this.statusBar.styleDefault();
             this.statusBar.backgroundColorByHexString('#600018');
             this.splashScreen.hide();
         });
@@ -93,26 +93,12 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
 
     async ngOnInit() {
         this.notifications();
-        this.user = this._service.getLocal("user");
-        if (this.user) {
-            this._router.navigateByUrl("/landing");
-            this.userNetwork = true;
-            this._menuCtr.enable(true);
-        } else if (!this.user) {
-            if (localStorage.getItem("slides")) {
-                this._router.navigateByUrl("/signin");
-            } else {
-                this._router.navigateByUrl("");
-            }
-            this._menuCtr.enable(false);
-        }
-
-        // this.networkListener = Network.addListener('networkStatusChange', status => {
-        //     this.networkStatus = status;
-        //     this.checkUser(this.networkStatus);
-        // });
-        // this.networkStatus = await Network.getStatus();
-        // this.checkUser(this.networkStatus);
+        this.networkListener = Network.addListener('networkStatusChange', status => {
+            this.networkStatus = status;
+            this.checkNetworkStatus(this.networkStatus);
+        });
+        this.networkStatus = await Network.getStatus();
+        this.checkNetworkStatus(this.networkStatus);
     }
 
     notifications() {
@@ -169,28 +155,19 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
         }
     }
 
-    // checkUser(networkStatus) {
-    //     if (networkStatus.connected) {
-    //         if (this.userNetwork) {
-    //             this._router.navigateByUrl("/landing");
-    //             this._menuCtr.enable(true);
-    //         }
-    //     } else if (networkStatus.connected) {
-    //         if (!this.userNetwork) {
-    //             if (localStorage.getItem("slides")) {
-    //                 this._router.navigateByUrl("/signin");
-    //             } else {
-    //                 this._router.navigateByUrl("");
-    //             }
-    //             this._menuCtr.enable(false);
-    //         }
-    //     } else {
-    //         this._router.navigateByUrl("/network-detection");
-    //         this._menuCtr.enable(false);
-    //     }
-    // }
+    checkNetworkStatus(networkStatus) {
+        if (networkStatus.connected) {
+            this._service.isLoggedIn ? this._menuCtr.enable(true) : this._menuCtr.enable(false);
+            if (this._router.url == "/network-detection") {
+                this._location.back();
+            }
+        } else {
+            this._router.navigateByUrl("/network-detection");
+            this._menuCtr.enable(false);
+        }
+    }
 
     ngOnDestroy() {
-        // this.networkListener.remove();
+        this.networkListener.remove();
     }
 }
